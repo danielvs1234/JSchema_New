@@ -1,0 +1,16 @@
+testobjectProp {
+	 String "testProp"
+}
+
+String "testStringProp" with 
+	length 3-5, 
+	pattern "/&", 
+	format uri;
+
+TestArray2 [String "name1", num 4]
+
+mainTestProp root{ 
+	Test includes "testStringProp", "testobjectProp", "TestArray2"{
+		TestArray [String "a", num 1]
+	}
+}
