@@ -10,13 +10,10 @@ local.properties
 .loadpath
 .recommenders
 
-.project
 
 # External tool builders
 .externalToolBuilders/
 
-# Locally stored "Eclipse launch configurations"
-*.launch
 
 # PyDev specific (Python IDE for Eclipse)
 *.pydevproject
