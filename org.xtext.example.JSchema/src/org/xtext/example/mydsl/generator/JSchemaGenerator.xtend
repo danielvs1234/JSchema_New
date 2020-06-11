@@ -75,6 +75,7 @@ class JSchemaGenerator extends AbstractGenerator {
 				stringBuilder.append(compiledObject.objectJSchemaString);
 				stringBuilder.append("\n}")
 				val formattedString = jsonFormatter.formatString(stringBuilder.toString())
+				System.out.println(formattedString)
 				fileController.writeFile(formattedString)
 				//fsa.generateFile("testFile.json", jsonFormatter.formatString(stringBuilder.toString()))
 				}
