@@ -17,6 +17,8 @@ import java.util.ArrayList
 import org.xtext.example.mydsl.jSchema.hasProperties
 import org.xtext.example.mydsl.generator.ObjectClass
 import org.xtext.example.mydsl.jSchema.PrimitiveProperties
+import org.xtext.example.mydsl.jSchema.ExtendedObject
+import org.xtext.example.mydsl.jSchema.AbstractObject
 
 /**
  * Generates code from your model files on save.
@@ -28,8 +30,13 @@ class JSchemaGenerator extends AbstractGenerator {
 	  @Inject extension IQualifiedNameProvider
 	  ArrayList<PrimitiveObject> primitiveObjectList;
 	  ArrayList<MainObject>	mainObjectList;
+	  ArrayList<ExtendedObject> extendedObjectList;
+	  
 	  ArrayList<ObjectClass> compiledMainObjects;
 	  ArrayList<PrimitiveObjectClass> compiledPrimitiveObjects;
+	  ArrayList<ExtendedObjectClass> compiledExtendedObjects;
+	  
+	  
 	  FileController fileController;
 	  JsonFormatter jsonFormatter;
 	  
@@ -37,10 +44,16 @@ class JSchemaGenerator extends AbstractGenerator {
 	  val filePath = "C:/Users/danie/Desktop/testFile.json"
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+			//un-compiled Objects
 			primitiveObjectList = new ArrayList<PrimitiveObject>()
 			mainObjectList = new ArrayList<MainObject>()
+			extendedObjectList = new ArrayList<ExtendedObject>()
+		
+			//compiled Objects
 			compiledPrimitiveObjects = new ArrayList<PrimitiveObjectClass>();
 			compiledMainObjects = new ArrayList<ObjectClass>();
+			compiledExtendedObjects = new ArrayList<ExtendedObjectClass>();
+		
 			val abstractObjects = resource.allContents.filter(Model).next
 			jsonFormatter = new JsonFormatter();
 			fileController = new FileController(filePath)
@@ -68,6 +81,10 @@ class JSchemaGenerator extends AbstractGenerator {
 				
 			}
 			
+			for (extObj : resource.allContents.toIterable.filter(ExtendedObject)){
+				compiledExtendedObjects.add(compileExtendedObject(extObj))
+			}
+			
 			for (ObjectClass compiledObject : compiledMainObjects){
 			if(compiledObject.isRoot == true){
 				var StringBuilder stringBuilder = new StringBuilder();
@@ -82,6 +99,30 @@ class JSchemaGenerator extends AbstractGenerator {
 			}
 				
 			}
+			
+	def ExtendedObjectClass compileExtendedObject(ExtendedObject obj){
+		var doesSuperObjectExist = false;
+		var ExtendedObjectClass tempObject;
+		var ObjectClass extendedFromObject;
+		
+		for(ObjectClass mainObj : compiledMainObjects){
+			if (obj.extendsID == mainObj.name)
+			doesSuperObjectExist = true;
+			extendedFromObject = mainObj
+		}
+		
+		if(extendedFromObject == true){
+			tempObject = new ExtendedObjectClass(obj, extendedFromObject);
+			if(obj.overRiddenProperties != null){
+				tempObject.setOveriddenObjectsList(getProperties(obj))
+			}
+		}else{
+			//Show Error that Extended object does not exist
+		}
+		
+		
+		return tempObject
+	}
 			
 	
 			
@@ -200,7 +241,7 @@ class JSchemaGenerator extends AbstractGenerator {
 		
 	}
 	
-	def ArrayList<hasProperties> getProperties(MainObject obj){
+	def ArrayList<hasProperties> getProperties(AbstractObject obj){
 		val ArrayList<hasProperties> propertyList = new ArrayList<hasProperties>();
 		for(hasProperties e : obj.properties){
 			propertyList.add(e);

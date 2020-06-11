@@ -13,7 +13,7 @@ Number:
 ;
 
 AbstractObject:
-	MainObject | PrimitiveObject
+	MainObject | PrimitiveObject | ExtendedObject
 ;
 
 MainObject:
@@ -25,9 +25,16 @@ PrimitiveObject:
 	type=PrimitiveTypes ('with' primitiveProperties+=PrimitiveProperties (',' primitiveProperties+=PrimitiveProperties)* ';' )? 
 ;
 
+ExtendedObject:
+	objectName=ID 'extends' extendsID=STRING '{' 
+	((('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)
+	(',' ('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)*)? 
+		'}'
+;
+
 
 PrimitiveTypes:
-	'String' string=STRING | array=Array | 'num' (number=Number)?
+	'String' stringName=ID string=STRING | array=Array | 'num' numID=ID (number=Number)?
 ;
 
 IsRoot:
@@ -37,6 +44,7 @@ IsRoot:
 hasProperties:
 	properties=Property
 ;
+
 
 Property:
  	propPrim=PrimitiveObject | propObj=MainObject

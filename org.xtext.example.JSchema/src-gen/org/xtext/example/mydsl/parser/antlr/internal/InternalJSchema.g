@@ -191,6 +191,15 @@ ruleAbstractObject returns [EObject current=null]
 			$current = $this_PrimitiveObject_1.current;
 			afterParserOrEnumRuleCall();
 		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getAbstractObjectAccess().getExtendedObjectParserRuleCall_2());
+		}
+		this_ExtendedObject_2=ruleExtendedObject
+		{
+			$current = $this_ExtendedObject_2.current;
+			afterParserOrEnumRuleCall();
+		}
 	)
 ;
 
@@ -421,6 +430,175 @@ rulePrimitiveObject returns [EObject current=null]
 	)
 ;
 
+// Entry rule entryRuleExtendedObject
+entryRuleExtendedObject returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getExtendedObjectRule()); }
+	iv_ruleExtendedObject=ruleExtendedObject
+	{ $current=$iv_ruleExtendedObject.current; }
+	EOF;
+
+// Rule ExtendedObject
+ruleExtendedObject returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			(
+				lv_objectName_0_0=RULE_ID
+				{
+					newLeafNode(lv_objectName_0_0, grammarAccess.getExtendedObjectAccess().getObjectNameIDTerminalRuleCall_0_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getExtendedObjectRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"objectName",
+						lv_objectName_0_0,
+						"org.eclipse.xtext.common.Terminals.ID");
+				}
+			)
+		)
+		otherlv_1='extends'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getExtendedObjectAccess().getExtendsKeyword_1());
+		}
+		(
+			(
+				lv_extendsID_2_0=RULE_STRING
+				{
+					newLeafNode(lv_extendsID_2_0, grammarAccess.getExtendedObjectAccess().getExtendsIDSTRINGTerminalRuleCall_2_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getExtendedObjectRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"extendsID",
+						lv_extendsID_2_0,
+						"org.eclipse.xtext.common.Terminals.STRING");
+				}
+			)
+		)
+		otherlv_3='{'
+		{
+			newLeafNode(otherlv_3, grammarAccess.getExtendedObjectAccess().getLeftCurlyBracketKeyword_3());
+		}
+		(
+			(
+				(
+					otherlv_4='override'
+					{
+						newLeafNode(otherlv_4, grammarAccess.getExtendedObjectAccess().getOverrideKeyword_4_0_0_0());
+					}
+					(
+						(
+							{
+								newCompositeNode(grammarAccess.getExtendedObjectAccess().getOverRiddenPropertiesHasPropertiesParserRuleCall_4_0_0_1_0());
+							}
+							lv_overRiddenProperties_5_0=rulehasProperties
+							{
+								if ($current==null) {
+									$current = createModelElementForParent(grammarAccess.getExtendedObjectRule());
+								}
+								add(
+									$current,
+									"overRiddenProperties",
+									lv_overRiddenProperties_5_0,
+									"org.xtext.example.mydsl.JSchema.hasProperties");
+								afterParserOrEnumRuleCall();
+							}
+						)
+					)
+				)
+				    |
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getExtendedObjectAccess().getPropertiesHasPropertiesParserRuleCall_4_0_1_0());
+						}
+						lv_properties_6_0=rulehasProperties
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getExtendedObjectRule());
+							}
+							add(
+								$current,
+								"properties",
+								lv_properties_6_0,
+								"org.xtext.example.mydsl.JSchema.hasProperties");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+			)
+			(
+				(
+					otherlv_7=','
+					{
+						newLeafNode(otherlv_7, grammarAccess.getExtendedObjectAccess().getCommaKeyword_4_1_0_0());
+					}
+					(
+						otherlv_8='override'
+						{
+							newLeafNode(otherlv_8, grammarAccess.getExtendedObjectAccess().getOverrideKeyword_4_1_0_1_0());
+						}
+						(
+							(
+								{
+									newCompositeNode(grammarAccess.getExtendedObjectAccess().getOverRiddenPropertiesHasPropertiesParserRuleCall_4_1_0_1_1_0());
+								}
+								lv_overRiddenProperties_9_0=rulehasProperties
+								{
+									if ($current==null) {
+										$current = createModelElementForParent(grammarAccess.getExtendedObjectRule());
+									}
+									add(
+										$current,
+										"overRiddenProperties",
+										lv_overRiddenProperties_9_0,
+										"org.xtext.example.mydsl.JSchema.hasProperties");
+									afterParserOrEnumRuleCall();
+								}
+							)
+						)
+					)
+				)
+				    |
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getExtendedObjectAccess().getPropertiesHasPropertiesParserRuleCall_4_1_1_0());
+						}
+						lv_properties_10_0=rulehasProperties
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getExtendedObjectRule());
+							}
+							add(
+								$current,
+								"properties",
+								lv_properties_10_0,
+								"org.xtext.example.mydsl.JSchema.hasProperties");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+			)*
+		)?
+		otherlv_11='}'
+		{
+			newLeafNode(otherlv_11, grammarAccess.getExtendedObjectAccess().getRightCurlyBracketKeyword_5());
+		}
+	)
+;
+
 // Entry rule entryRulePrimitiveTypes
 entryRulePrimitiveTypes returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getPrimitiveTypesRule()); }
@@ -444,9 +622,27 @@ rulePrimitiveTypes returns [EObject current=null]
 			}
 			(
 				(
-					lv_string_1_0=RULE_STRING
+					lv_stringName_1_0=RULE_ID
 					{
-						newLeafNode(lv_string_1_0, grammarAccess.getPrimitiveTypesAccess().getStringSTRINGTerminalRuleCall_0_1_0());
+						newLeafNode(lv_stringName_1_0, grammarAccess.getPrimitiveTypesAccess().getStringNameIDTerminalRuleCall_0_1_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getPrimitiveTypesRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"stringName",
+							lv_stringName_1_0,
+							"org.eclipse.xtext.common.Terminals.ID");
+					}
+				)
+			)
+			(
+				(
+					lv_string_2_0=RULE_STRING
+					{
+						newLeafNode(lv_string_2_0, grammarAccess.getPrimitiveTypesAccess().getStringSTRINGTerminalRuleCall_0_2_0());
 					}
 					{
 						if ($current==null) {
@@ -455,7 +651,7 @@ rulePrimitiveTypes returns [EObject current=null]
 						setWithLastConsumed(
 							$current,
 							"string",
-							lv_string_1_0,
+							lv_string_2_0,
 							"org.eclipse.xtext.common.Terminals.STRING");
 					}
 				)
@@ -467,7 +663,7 @@ rulePrimitiveTypes returns [EObject current=null]
 				{
 					newCompositeNode(grammarAccess.getPrimitiveTypesAccess().getArrayArrayParserRuleCall_1_0());
 				}
-				lv_array_2_0=ruleArray
+				lv_array_3_0=ruleArray
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getPrimitiveTypesRule());
@@ -475,7 +671,7 @@ rulePrimitiveTypes returns [EObject current=null]
 					set(
 						$current,
 						"array",
-						lv_array_2_0,
+						lv_array_3_0,
 						"org.xtext.example.mydsl.JSchema.Array");
 					afterParserOrEnumRuleCall();
 				}
@@ -483,16 +679,34 @@ rulePrimitiveTypes returns [EObject current=null]
 		)
 		    |
 		(
-			otherlv_3='num'
+			otherlv_4='num'
 			{
-				newLeafNode(otherlv_3, grammarAccess.getPrimitiveTypesAccess().getNumKeyword_2_0());
+				newLeafNode(otherlv_4, grammarAccess.getPrimitiveTypesAccess().getNumKeyword_2_0());
 			}
 			(
 				(
+					lv_numID_5_0=RULE_ID
 					{
-						newCompositeNode(grammarAccess.getPrimitiveTypesAccess().getNumberNumberParserRuleCall_2_1_0());
+						newLeafNode(lv_numID_5_0, grammarAccess.getPrimitiveTypesAccess().getNumIDIDTerminalRuleCall_2_1_0());
 					}
-					lv_number_4_0=ruleNumber
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getPrimitiveTypesRule());
+						}
+						setWithLastConsumed(
+							$current,
+							"numID",
+							lv_numID_5_0,
+							"org.eclipse.xtext.common.Terminals.ID");
+					}
+				)
+			)
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getPrimitiveTypesAccess().getNumberNumberParserRuleCall_2_2_0());
+					}
+					lv_number_6_0=ruleNumber
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getPrimitiveTypesRule());
@@ -500,7 +714,7 @@ rulePrimitiveTypes returns [EObject current=null]
 						set(
 							$current,
 							"number",
-							lv_number_4_0,
+							lv_number_6_0,
 							"org.xtext.example.mydsl.JSchema.Number");
 						afterParserOrEnumRuleCall();
 					}

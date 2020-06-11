@@ -52,6 +52,14 @@ public class ObjectClass{
 		return this.includedPrimitiveObjects;
 	}
 	
+	public ArrayList<ObjectClass> getNestedMainObjects(){
+		return this.hasMainObjectPropertiesList;
+	}
+	
+	public ArrayList<PrimitiveObjectClass> getNestedPrimitiveObjects(){
+		return this.hasPrimtiveObjectPropertiesList;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}

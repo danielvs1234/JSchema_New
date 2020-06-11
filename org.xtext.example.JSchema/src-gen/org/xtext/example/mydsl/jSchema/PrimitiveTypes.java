@@ -14,8 +14,10 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.xtext.example.mydsl.jSchema.PrimitiveTypes#getStringName <em>String Name</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.jSchema.PrimitiveTypes#getString <em>String</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.jSchema.PrimitiveTypes#getArray <em>Array</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.jSchema.PrimitiveTypes#getNumID <em>Num ID</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.jSchema.PrimitiveTypes#getNumber <em>Number</em>}</li>
  * </ul>
  *
@@ -25,6 +27,28 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface PrimitiveTypes extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>String Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>String Name</em>' attribute.
+   * @see #setStringName(String)
+   * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#getPrimitiveTypes_StringName()
+   * @model
+   * @generated
+   */
+  String getStringName();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.jSchema.PrimitiveTypes#getStringName <em>String Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>String Name</em>' attribute.
+   * @see #getStringName()
+   * @generated
+   */
+  void setStringName(String value);
+
   /**
    * Returns the value of the '<em><b>String</b></em>' attribute.
    * <!-- begin-user-doc -->
@@ -68,6 +92,28 @@ public interface PrimitiveTypes extends EObject
    * @generated
    */
   void setArray(Array value);
+
+  /**
+   * Returns the value of the '<em><b>Num ID</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Num ID</em>' attribute.
+   * @see #setNumID(String)
+   * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#getPrimitiveTypes_NumID()
+   * @model
+   * @generated
+   */
+  String getNumID();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.jSchema.PrimitiveTypes#getNumID <em>Num ID</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Num ID</em>' attribute.
+   * @see #getNumID()
+   * @generated
+   */
+  void setNumID(String value);
 
   /**
    * Returns the value of the '<em><b>Number</b></em>' containment reference.

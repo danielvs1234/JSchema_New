@@ -26,10 +26,20 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="primitiveProperties" upperBound="-1"
         eType="#//PrimitiveProperties" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExtendedObject" eSuperTypes="#//AbstractObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="objectName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="extendsID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="overRiddenProperties" upperBound="-1"
+        eType="#//hasProperties" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="#//hasProperties" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PrimitiveTypes">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stringName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="string" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="array" eType="#//Array"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="number" eType="#//Number"
         containment="true"/>
   </eClassifiers>

@@ -69,6 +69,15 @@ public interface JSchemaFactory extends EFactory
   PrimitiveObject createPrimitiveObject();
 
   /**
+   * Returns a new object of class '<em>Extended Object</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Extended Object</em>'.
+   * @generated
+   */
+  ExtendedObject createExtendedObject();
+
+  /**
    * Returns a new object of class '<em>Primitive Types</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
