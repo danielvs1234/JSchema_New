@@ -190,10 +190,14 @@ class JSchemaGenerator extends AbstractGenerator {
 			System.out.println("ExtendedObjects included prim objects: " + tempObject.includedPrimitiveObjects.size())
 			
 			
-		//	if(obj.overRiddenProperties != null){
-		//		tempObject.setOveriddenObjectsList(getProperties(obj))
-		//		tempObject.overrideObjects
-		//	}
+			
+			//Check if extended Object holds any nested properties or overidden properties. And check if nested properties does not exists on super
+			//and that overidden properties does in fact exists on super.
+			
+			if(obj.overRiddenProperties != null){
+				tempObject.setOveriddenObjectsList(getProperties(obj))
+				tempObject.overrideObjects
+			}
 		}else{
 			//Show Error that Extended object does not exist
 			return null
