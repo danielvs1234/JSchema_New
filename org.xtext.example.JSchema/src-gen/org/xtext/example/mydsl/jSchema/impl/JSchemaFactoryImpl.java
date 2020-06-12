@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.xtext.example.mydsl.jSchema.AbstractObject;
 import org.xtext.example.mydsl.jSchema.Array;
 import org.xtext.example.mydsl.jSchema.ExtendedObject;
+import org.xtext.example.mydsl.jSchema.ExtendedProperties;
 import org.xtext.example.mydsl.jSchema.FormatTypes;
 import org.xtext.example.mydsl.jSchema.Includes;
 import org.xtext.example.mydsl.jSchema.IsRoot;
@@ -86,6 +87,7 @@ public class JSchemaFactoryImpl extends EFactoryImpl implements JSchemaFactory
       case JSchemaPackage.MAIN_OBJECT: return createMainObject();
       case JSchemaPackage.PRIMITIVE_OBJECT: return createPrimitiveObject();
       case JSchemaPackage.EXTENDED_OBJECT: return createExtendedObject();
+      case JSchemaPackage.EXTENDED_PROPERTIES: return createExtendedProperties();
       case JSchemaPackage.PRIMITIVE_TYPES: return createPrimitiveTypes();
       case JSchemaPackage.IS_ROOT: return createIsRoot();
       case JSchemaPackage.HAS_PROPERTIES: return createhasProperties();
@@ -202,6 +204,18 @@ public class JSchemaFactoryImpl extends EFactoryImpl implements JSchemaFactory
   {
     ExtendedObjectImpl extendedObject = new ExtendedObjectImpl();
     return extendedObject;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public ExtendedProperties createExtendedProperties()
+  {
+    ExtendedPropertiesImpl extendedProperties = new ExtendedPropertiesImpl();
+    return extendedProperties;
   }
 
   /**

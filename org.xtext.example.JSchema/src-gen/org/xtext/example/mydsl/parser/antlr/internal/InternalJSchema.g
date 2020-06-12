@@ -518,109 +518,105 @@ ruleExtendedObject returns [EObject current=null]
 		(
 			(
 				(
-					otherlv_6='override'
 					{
-						newLeafNode(otherlv_6, grammarAccess.getExtendedObjectAccess().getOverrideKeyword_5_0_0_0());
+						newCompositeNode(grammarAccess.getExtendedObjectAccess().getBodyExtendedPropertiesParserRuleCall_5_0_0());
 					}
-					(
-						(
-							{
-								newCompositeNode(grammarAccess.getExtendedObjectAccess().getOverRiddenPropertiesHasPropertiesParserRuleCall_5_0_0_1_0());
-							}
-							lv_overRiddenProperties_7_0=rulehasProperties
-							{
-								if ($current==null) {
-									$current = createModelElementForParent(grammarAccess.getExtendedObjectRule());
-								}
-								add(
-									$current,
-									"overRiddenProperties",
-									lv_overRiddenProperties_7_0,
-									"org.xtext.example.mydsl.JSchema.hasProperties");
-								afterParserOrEnumRuleCall();
-							}
-						)
-					)
-				)
-				    |
-				(
-					(
-						{
-							newCompositeNode(grammarAccess.getExtendedObjectAccess().getPropertiesHasPropertiesParserRuleCall_5_0_1_0());
+					lv_body_6_0=ruleExtendedProperties
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getExtendedObjectRule());
 						}
-						lv_properties_8_0=rulehasProperties
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getExtendedObjectRule());
-							}
-							add(
-								$current,
-								"properties",
-								lv_properties_8_0,
-								"org.xtext.example.mydsl.JSchema.hasProperties");
-							afterParserOrEnumRuleCall();
-						}
-					)
+						add(
+							$current,
+							"body",
+							lv_body_6_0,
+							"org.xtext.example.mydsl.JSchema.ExtendedProperties");
+						afterParserOrEnumRuleCall();
+					}
 				)
 			)
 			(
-				(
-					otherlv_9=','
-					{
-						newLeafNode(otherlv_9, grammarAccess.getExtendedObjectAccess().getCommaKeyword_5_1_0_0());
-					}
-					(
-						otherlv_10='override'
-						{
-							newLeafNode(otherlv_10, grammarAccess.getExtendedObjectAccess().getOverrideKeyword_5_1_0_1_0());
-						}
-						(
-							(
-								{
-									newCompositeNode(grammarAccess.getExtendedObjectAccess().getOverRiddenPropertiesHasPropertiesParserRuleCall_5_1_0_1_1_0());
-								}
-								lv_overRiddenProperties_11_0=rulehasProperties
-								{
-									if ($current==null) {
-										$current = createModelElementForParent(grammarAccess.getExtendedObjectRule());
-									}
-									add(
-										$current,
-										"overRiddenProperties",
-										lv_overRiddenProperties_11_0,
-										"org.xtext.example.mydsl.JSchema.hasProperties");
-									afterParserOrEnumRuleCall();
-								}
-							)
-						)
-					)
-				)
-				    |
+				otherlv_7=','
+				{
+					newLeafNode(otherlv_7, grammarAccess.getExtendedObjectAccess().getCommaKeyword_5_1_0());
+				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getExtendedObjectAccess().getPropertiesHasPropertiesParserRuleCall_5_1_1_0());
+							newCompositeNode(grammarAccess.getExtendedObjectAccess().getBodyExtendedPropertiesParserRuleCall_5_1_1_0());
 						}
-						lv_properties_12_0=rulehasProperties
+						lv_body_8_0=ruleExtendedProperties
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getExtendedObjectRule());
 							}
 							add(
 								$current,
-								"properties",
-								lv_properties_12_0,
-								"org.xtext.example.mydsl.JSchema.hasProperties");
+								"body",
+								lv_body_8_0,
+								"org.xtext.example.mydsl.JSchema.ExtendedProperties");
 							afterParserOrEnumRuleCall();
 						}
 					)
 				)
 			)*
 		)?
-		otherlv_13='}'
+		otherlv_9='}'
 		{
-			newLeafNode(otherlv_13, grammarAccess.getExtendedObjectAccess().getRightCurlyBracketKeyword_6());
+			newLeafNode(otherlv_9, grammarAccess.getExtendedObjectAccess().getRightCurlyBracketKeyword_6());
 		}
+	)
+;
+
+// Entry rule entryRuleExtendedProperties
+entryRuleExtendedProperties returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getExtendedPropertiesRule()); }
+	iv_ruleExtendedProperties=ruleExtendedProperties
+	{ $current=$iv_ruleExtendedProperties.current; }
+	EOF;
+
+// Rule ExtendedProperties
+ruleExtendedProperties returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			(
+				lv_override_0_0='override'
+				{
+					newLeafNode(lv_override_0_0, grammarAccess.getExtendedPropertiesAccess().getOverrideOverrideKeyword_0_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getExtendedPropertiesRule());
+					}
+					setWithLastConsumed($current, "override", lv_override_0_0, "override");
+				}
+			)
+		)?
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getExtendedPropertiesAccess().getExtendedPropertiesHasPropertiesParserRuleCall_1_0());
+				}
+				lv_extendedProperties_1_0=rulehasProperties
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getExtendedPropertiesRule());
+					}
+					set(
+						$current,
+						"extendedProperties",
+						lv_extendedProperties_1_0,
+						"org.xtext.example.mydsl.JSchema.hasProperties");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
 	)
 ;
 

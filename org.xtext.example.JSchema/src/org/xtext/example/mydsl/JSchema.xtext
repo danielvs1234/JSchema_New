@@ -25,13 +25,21 @@ PrimitiveObject:
 	type=PrimitiveTypes ('with' primitiveProperties+=PrimitiveProperties (',' primitiveProperties+=PrimitiveProperties)* ';' )? 
 ;
 
+//((('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)
+//		(',' (('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)*)?
+		
+//		'}'
 ExtendedObject:
 	exObjectName=ID 'extends' extendsID=STRING ('includes' includeObjects=Includes)? '{' 
-	((('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)
-	(',' ('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)*)? 
-		'}'
+	( body+=ExtendedProperties(',' body+=ExtendedProperties)*)?
+	
+	'}'
 ;
 
+ExtendedProperties:
+(override='override')? extendedProperties=hasProperties
+
+;
 
 PrimitiveTypes:
 	'String' string=STRING | array=Array | 'num' (number=Number)?

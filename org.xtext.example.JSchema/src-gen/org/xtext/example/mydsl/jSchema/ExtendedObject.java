@@ -17,8 +17,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.xtext.example.mydsl.jSchema.ExtendedObject#getExObjectName <em>Ex Object Name</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.jSchema.ExtendedObject#getExtendsID <em>Extends ID</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.jSchema.ExtendedObject#getIncludeObjects <em>Include Objects</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.jSchema.ExtendedObject#getOverRiddenProperties <em>Over Ridden Properties</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.jSchema.ExtendedObject#getProperties <em>Properties</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.jSchema.ExtendedObject#getBody <em>Body</em>}</li>
  * </ul>
  *
  * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#getExtendedObject()
@@ -94,27 +93,15 @@ public interface ExtendedObject extends AbstractObject
   void setIncludeObjects(Includes value);
 
   /**
-   * Returns the value of the '<em><b>Over Ridden Properties</b></em>' containment reference list.
-   * The list contents are of type {@link org.xtext.example.mydsl.jSchema.hasProperties}.
+   * Returns the value of the '<em><b>Body</b></em>' containment reference list.
+   * The list contents are of type {@link org.xtext.example.mydsl.jSchema.ExtendedProperties}.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Over Ridden Properties</em>' containment reference list.
-   * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#getExtendedObject_OverRiddenProperties()
+   * @return the value of the '<em>Body</em>' containment reference list.
+   * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#getExtendedObject_Body()
    * @model containment="true"
    * @generated
    */
-  EList<hasProperties> getOverRiddenProperties();
-
-  /**
-   * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
-   * The list contents are of type {@link org.xtext.example.mydsl.jSchema.hasProperties}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Properties</em>' containment reference list.
-   * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#getExtendedObject_Properties()
-   * @model containment="true"
-   * @generated
-   */
-  EList<hasProperties> getProperties();
+  EList<ExtendedProperties> getBody();
 
 } // ExtendedObject

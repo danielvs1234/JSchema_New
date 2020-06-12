@@ -250,34 +250,25 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIncludeObjectsIncludesParserRuleCall_3_1_0 = (RuleCall)cIncludeObjectsAssignment_3_1.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Alternatives cAlternatives_5_0 = (Alternatives)cGroup_5.eContents().get(0);
-		private final Group cGroup_5_0_0 = (Group)cAlternatives_5_0.eContents().get(0);
-		private final Keyword cOverrideKeyword_5_0_0_0 = (Keyword)cGroup_5_0_0.eContents().get(0);
-		private final Assignment cOverRiddenPropertiesAssignment_5_0_0_1 = (Assignment)cGroup_5_0_0.eContents().get(1);
-		private final RuleCall cOverRiddenPropertiesHasPropertiesParserRuleCall_5_0_0_1_0 = (RuleCall)cOverRiddenPropertiesAssignment_5_0_0_1.eContents().get(0);
-		private final Assignment cPropertiesAssignment_5_0_1 = (Assignment)cAlternatives_5_0.eContents().get(1);
-		private final RuleCall cPropertiesHasPropertiesParserRuleCall_5_0_1_0 = (RuleCall)cPropertiesAssignment_5_0_1.eContents().get(0);
-		private final Alternatives cAlternatives_5_1 = (Alternatives)cGroup_5.eContents().get(1);
-		private final Group cGroup_5_1_0 = (Group)cAlternatives_5_1.eContents().get(0);
-		private final Keyword cCommaKeyword_5_1_0_0 = (Keyword)cGroup_5_1_0.eContents().get(0);
-		private final Group cGroup_5_1_0_1 = (Group)cGroup_5_1_0.eContents().get(1);
-		private final Keyword cOverrideKeyword_5_1_0_1_0 = (Keyword)cGroup_5_1_0_1.eContents().get(0);
-		private final Assignment cOverRiddenPropertiesAssignment_5_1_0_1_1 = (Assignment)cGroup_5_1_0_1.eContents().get(1);
-		private final RuleCall cOverRiddenPropertiesHasPropertiesParserRuleCall_5_1_0_1_1_0 = (RuleCall)cOverRiddenPropertiesAssignment_5_1_0_1_1.eContents().get(0);
-		private final Assignment cPropertiesAssignment_5_1_1 = (Assignment)cAlternatives_5_1.eContents().get(1);
-		private final RuleCall cPropertiesHasPropertiesParserRuleCall_5_1_1_0 = (RuleCall)cPropertiesAssignment_5_1_1.eContents().get(0);
+		private final Assignment cBodyAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
+		private final RuleCall cBodyExtendedPropertiesParserRuleCall_5_0_0 = (RuleCall)cBodyAssignment_5_0.eContents().get(0);
+		private final Group cGroup_5_1 = (Group)cGroup_5.eContents().get(1);
+		private final Keyword cCommaKeyword_5_1_0 = (Keyword)cGroup_5_1.eContents().get(0);
+		private final Assignment cBodyAssignment_5_1_1 = (Assignment)cGroup_5_1.eContents().get(1);
+		private final RuleCall cBodyExtendedPropertiesParserRuleCall_5_1_1_0 = (RuleCall)cBodyAssignment_5_1_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
+		////((('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)
+		////		(',' (('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)*)?
+		////		'}'
 		//ExtendedObject:
-		//	exObjectName=ID 'extends' extendsID=STRING ('includes' includeObjects=Includes)? '{' (('override'
-		//	overRiddenProperties+=hasProperties | properties+=hasProperties) (',' ('override'
-		//	overRiddenProperties+=hasProperties) | properties+=hasProperties)*)?
+		//	exObjectName=ID 'extends' extendsID=STRING ('includes' includeObjects=Includes)? '{' (body+=ExtendedProperties (','
+		//	body+=ExtendedProperties)*)?
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//exObjectName=ID 'extends' extendsID=STRING ('includes' includeObjects=Includes)? '{' (('override'
-		//overRiddenProperties+=hasProperties | properties+=hasProperties) (',' ('override' overRiddenProperties+=hasProperties)
-		//| properties+=hasProperties)*)? '}'
+		//exObjectName=ID 'extends' extendsID=STRING ('includes' includeObjects=Includes)? '{' (body+=ExtendedProperties (','
+		//body+=ExtendedProperties)*)? '}'
 		public Group getGroup() { return cGroup; }
 		
 		//exObjectName=ID
@@ -310,60 +301,56 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
 		
-		//(('override' overRiddenProperties+=hasProperties | properties+=hasProperties) (',' ('override'
-		//overRiddenProperties+=hasProperties) | properties+=hasProperties)*)?
+		//(body+=ExtendedProperties (',' body+=ExtendedProperties)*)?
 		public Group getGroup_5() { return cGroup_5; }
 		
-		//('override' overRiddenProperties+=hasProperties | properties+=hasProperties)
-		public Alternatives getAlternatives_5_0() { return cAlternatives_5_0; }
+		//body+=ExtendedProperties
+		public Assignment getBodyAssignment_5_0() { return cBodyAssignment_5_0; }
 		
-		//'override' overRiddenProperties+=hasProperties
-		public Group getGroup_5_0_0() { return cGroup_5_0_0; }
+		//ExtendedProperties
+		public RuleCall getBodyExtendedPropertiesParserRuleCall_5_0_0() { return cBodyExtendedPropertiesParserRuleCall_5_0_0; }
 		
-		//'override'
-		public Keyword getOverrideKeyword_5_0_0_0() { return cOverrideKeyword_5_0_0_0; }
-		
-		//overRiddenProperties+=hasProperties
-		public Assignment getOverRiddenPropertiesAssignment_5_0_0_1() { return cOverRiddenPropertiesAssignment_5_0_0_1; }
-		
-		//hasProperties
-		public RuleCall getOverRiddenPropertiesHasPropertiesParserRuleCall_5_0_0_1_0() { return cOverRiddenPropertiesHasPropertiesParserRuleCall_5_0_0_1_0; }
-		
-		//properties+=hasProperties
-		public Assignment getPropertiesAssignment_5_0_1() { return cPropertiesAssignment_5_0_1; }
-		
-		//hasProperties
-		public RuleCall getPropertiesHasPropertiesParserRuleCall_5_0_1_0() { return cPropertiesHasPropertiesParserRuleCall_5_0_1_0; }
-		
-		//(',' ('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)*
-		public Alternatives getAlternatives_5_1() { return cAlternatives_5_1; }
-		
-		//',' ('override' overRiddenProperties+=hasProperties)
-		public Group getGroup_5_1_0() { return cGroup_5_1_0; }
+		//(',' body+=ExtendedProperties)*
+		public Group getGroup_5_1() { return cGroup_5_1; }
 		
 		//','
-		public Keyword getCommaKeyword_5_1_0_0() { return cCommaKeyword_5_1_0_0; }
+		public Keyword getCommaKeyword_5_1_0() { return cCommaKeyword_5_1_0; }
 		
-		//('override' overRiddenProperties+=hasProperties)
-		public Group getGroup_5_1_0_1() { return cGroup_5_1_0_1; }
+		//body+=ExtendedProperties
+		public Assignment getBodyAssignment_5_1_1() { return cBodyAssignment_5_1_1; }
 		
-		//'override'
-		public Keyword getOverrideKeyword_5_1_0_1_0() { return cOverrideKeyword_5_1_0_1_0; }
-		
-		//overRiddenProperties+=hasProperties
-		public Assignment getOverRiddenPropertiesAssignment_5_1_0_1_1() { return cOverRiddenPropertiesAssignment_5_1_0_1_1; }
-		
-		//hasProperties
-		public RuleCall getOverRiddenPropertiesHasPropertiesParserRuleCall_5_1_0_1_1_0() { return cOverRiddenPropertiesHasPropertiesParserRuleCall_5_1_0_1_1_0; }
-		
-		//properties+=hasProperties
-		public Assignment getPropertiesAssignment_5_1_1() { return cPropertiesAssignment_5_1_1; }
-		
-		//hasProperties
-		public RuleCall getPropertiesHasPropertiesParserRuleCall_5_1_1_0() { return cPropertiesHasPropertiesParserRuleCall_5_1_1_0; }
+		//ExtendedProperties
+		public RuleCall getBodyExtendedPropertiesParserRuleCall_5_1_1_0() { return cBodyExtendedPropertiesParserRuleCall_5_1_1_0; }
 		
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
+	}
+	public class ExtendedPropertiesElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.JSchema.ExtendedProperties");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cOverrideAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cOverrideOverrideKeyword_0_0 = (Keyword)cOverrideAssignment_0.eContents().get(0);
+		private final Assignment cExtendedPropertiesAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cExtendedPropertiesHasPropertiesParserRuleCall_1_0 = (RuleCall)cExtendedPropertiesAssignment_1.eContents().get(0);
+		
+		//ExtendedProperties:
+		//	override='override'? extendedProperties=hasProperties;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//override='override'? extendedProperties=hasProperties
+		public Group getGroup() { return cGroup; }
+		
+		//override='override'?
+		public Assignment getOverrideAssignment_0() { return cOverrideAssignment_0; }
+		
+		//'override'
+		public Keyword getOverrideOverrideKeyword_0_0() { return cOverrideOverrideKeyword_0_0; }
+		
+		//extendedProperties=hasProperties
+		public Assignment getExtendedPropertiesAssignment_1() { return cExtendedPropertiesAssignment_1; }
+		
+		//hasProperties
+		public RuleCall getExtendedPropertiesHasPropertiesParserRuleCall_1_0() { return cExtendedPropertiesHasPropertiesParserRuleCall_1_0; }
 	}
 	public class PrimitiveTypesElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.JSchema.PrimitiveTypes");
@@ -853,6 +840,7 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 	private final MainObjectElements pMainObject;
 	private final PrimitiveObjectElements pPrimitiveObject;
 	private final ExtendedObjectElements pExtendedObject;
+	private final ExtendedPropertiesElements pExtendedProperties;
 	private final PrimitiveTypesElements pPrimitiveTypes;
 	private final IsRootElements pIsRoot;
 	private final HasPropertiesElements pHasProperties;
@@ -879,6 +867,7 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pMainObject = new MainObjectElements();
 		this.pPrimitiveObject = new PrimitiveObjectElements();
 		this.pExtendedObject = new ExtendedObjectElements();
+		this.pExtendedProperties = new ExtendedPropertiesElements();
 		this.pPrimitiveTypes = new PrimitiveTypesElements();
 		this.pIsRoot = new IsRootElements();
 		this.pHasProperties = new HasPropertiesElements();
@@ -970,10 +959,12 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 		return getPrimitiveObjectAccess().getRule();
 	}
 	
+	////((('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)
+	////		(',' (('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)*)?
+	////		'}'
 	//ExtendedObject:
-	//	exObjectName=ID 'extends' extendsID=STRING ('includes' includeObjects=Includes)? '{' (('override'
-	//	overRiddenProperties+=hasProperties | properties+=hasProperties) (',' ('override'
-	//	overRiddenProperties+=hasProperties) | properties+=hasProperties)*)?
+	//	exObjectName=ID 'extends' extendsID=STRING ('includes' includeObjects=Includes)? '{' (body+=ExtendedProperties (','
+	//	body+=ExtendedProperties)*)?
 	//	'}';
 	public ExtendedObjectElements getExtendedObjectAccess() {
 		return pExtendedObject;
@@ -981,6 +972,16 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getExtendedObjectRule() {
 		return getExtendedObjectAccess().getRule();
+	}
+	
+	//ExtendedProperties:
+	//	override='override'? extendedProperties=hasProperties;
+	public ExtendedPropertiesElements getExtendedPropertiesAccess() {
+		return pExtendedProperties;
+	}
+	
+	public ParserRule getExtendedPropertiesRule() {
+		return getExtendedPropertiesAccess().getRule();
 	}
 	
 	//PrimitiveTypes:

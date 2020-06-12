@@ -16,6 +16,7 @@ import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequence
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.xtext.example.mydsl.jSchema.Array;
 import org.xtext.example.mydsl.jSchema.ExtendedObject;
+import org.xtext.example.mydsl.jSchema.ExtendedProperties;
 import org.xtext.example.mydsl.jSchema.Includes;
 import org.xtext.example.mydsl.jSchema.IsRoot;
 import org.xtext.example.mydsl.jSchema.JSchemaPackage;
@@ -47,6 +48,9 @@ public class JSchemaSemanticSequencer extends AbstractDelegatingSemanticSequence
 				return; 
 			case JSchemaPackage.EXTENDED_OBJECT:
 				sequence_ExtendedObject(context, (ExtendedObject) semanticObject); 
+				return; 
+			case JSchemaPackage.EXTENDED_PROPERTIES:
+				sequence_ExtendedProperties(context, (ExtendedProperties) semanticObject); 
 				return; 
 			case JSchemaPackage.INCLUDES:
 				sequence_Includes(context, (Includes) semanticObject); 
@@ -101,18 +105,21 @@ public class JSchemaSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     ExtendedObject returns ExtendedObject
 	 *
 	 * Constraint:
-	 *     (
-	 *         exObjectName=ID 
-	 *         extendsID=STRING 
-	 *         includeObjects=Includes? 
-	 *         (
-	 *             (overRiddenProperties+=hasProperties | properties+=hasProperties) 
-	 *             properties+=hasProperties? 
-	 *             (overRiddenProperties+=hasProperties? properties+=hasProperties?)*
-	 *         )?
-	 *     )
+	 *     (exObjectName=ID extendsID=STRING includeObjects=Includes? (body+=ExtendedProperties body+=ExtendedProperties*)?)
 	 */
 	protected void sequence_ExtendedObject(ISerializationContext context, ExtendedObject semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ExtendedProperties returns ExtendedProperties
+	 *
+	 * Constraint:
+	 *     (override='override'? extendedProperties=hasProperties)
+	 */
+	protected void sequence_ExtendedProperties(ISerializationContext context, ExtendedProperties semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

@@ -19,9 +19,9 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.xtext.example.mydsl.jSchema.ExtendedObject;
+import org.xtext.example.mydsl.jSchema.ExtendedProperties;
 import org.xtext.example.mydsl.jSchema.Includes;
 import org.xtext.example.mydsl.jSchema.JSchemaPackage;
-import org.xtext.example.mydsl.jSchema.hasProperties;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,8 +34,7 @@ import org.xtext.example.mydsl.jSchema.hasProperties;
  *   <li>{@link org.xtext.example.mydsl.jSchema.impl.ExtendedObjectImpl#getExObjectName <em>Ex Object Name</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.jSchema.impl.ExtendedObjectImpl#getExtendsID <em>Extends ID</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.jSchema.impl.ExtendedObjectImpl#getIncludeObjects <em>Include Objects</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.jSchema.impl.ExtendedObjectImpl#getOverRiddenProperties <em>Over Ridden Properties</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.jSchema.impl.ExtendedObjectImpl#getProperties <em>Properties</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.jSchema.impl.ExtendedObjectImpl#getBody <em>Body</em>}</li>
  * </ul>
  *
  * @generated
@@ -93,24 +92,14 @@ public class ExtendedObjectImpl extends AbstractObjectImpl implements ExtendedOb
   protected Includes includeObjects;
 
   /**
-   * The cached value of the '{@link #getOverRiddenProperties() <em>Over Ridden Properties</em>}' containment reference list.
+   * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getOverRiddenProperties()
+   * @see #getBody()
    * @generated
    * @ordered
    */
-  protected EList<hasProperties> overRiddenProperties;
-
-  /**
-   * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getProperties()
-   * @generated
-   * @ordered
-   */
-  protected EList<hasProperties> properties;
+  protected EList<ExtendedProperties> body;
 
   /**
    * <!-- begin-user-doc -->
@@ -239,28 +228,13 @@ public class ExtendedObjectImpl extends AbstractObjectImpl implements ExtendedOb
    * @generated
    */
   @Override
-  public EList<hasProperties> getOverRiddenProperties()
+  public EList<ExtendedProperties> getBody()
   {
-    if (overRiddenProperties == null)
+    if (body == null)
     {
-      overRiddenProperties = new EObjectContainmentEList<hasProperties>(hasProperties.class, this, JSchemaPackage.EXTENDED_OBJECT__OVER_RIDDEN_PROPERTIES);
+      body = new EObjectContainmentEList<ExtendedProperties>(ExtendedProperties.class, this, JSchemaPackage.EXTENDED_OBJECT__BODY);
     }
-    return overRiddenProperties;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EList<hasProperties> getProperties()
-  {
-    if (properties == null)
-    {
-      properties = new EObjectContainmentEList<hasProperties>(hasProperties.class, this, JSchemaPackage.EXTENDED_OBJECT__PROPERTIES);
-    }
-    return properties;
+    return body;
   }
 
   /**
@@ -275,10 +249,8 @@ public class ExtendedObjectImpl extends AbstractObjectImpl implements ExtendedOb
     {
       case JSchemaPackage.EXTENDED_OBJECT__INCLUDE_OBJECTS:
         return basicSetIncludeObjects(null, msgs);
-      case JSchemaPackage.EXTENDED_OBJECT__OVER_RIDDEN_PROPERTIES:
-        return ((InternalEList<?>)getOverRiddenProperties()).basicRemove(otherEnd, msgs);
-      case JSchemaPackage.EXTENDED_OBJECT__PROPERTIES:
-        return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
+      case JSchemaPackage.EXTENDED_OBJECT__BODY:
+        return ((InternalEList<?>)getBody()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -299,10 +271,8 @@ public class ExtendedObjectImpl extends AbstractObjectImpl implements ExtendedOb
         return getExtendsID();
       case JSchemaPackage.EXTENDED_OBJECT__INCLUDE_OBJECTS:
         return getIncludeObjects();
-      case JSchemaPackage.EXTENDED_OBJECT__OVER_RIDDEN_PROPERTIES:
-        return getOverRiddenProperties();
-      case JSchemaPackage.EXTENDED_OBJECT__PROPERTIES:
-        return getProperties();
+      case JSchemaPackage.EXTENDED_OBJECT__BODY:
+        return getBody();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -327,13 +297,9 @@ public class ExtendedObjectImpl extends AbstractObjectImpl implements ExtendedOb
       case JSchemaPackage.EXTENDED_OBJECT__INCLUDE_OBJECTS:
         setIncludeObjects((Includes)newValue);
         return;
-      case JSchemaPackage.EXTENDED_OBJECT__OVER_RIDDEN_PROPERTIES:
-        getOverRiddenProperties().clear();
-        getOverRiddenProperties().addAll((Collection<? extends hasProperties>)newValue);
-        return;
-      case JSchemaPackage.EXTENDED_OBJECT__PROPERTIES:
-        getProperties().clear();
-        getProperties().addAll((Collection<? extends hasProperties>)newValue);
+      case JSchemaPackage.EXTENDED_OBJECT__BODY:
+        getBody().clear();
+        getBody().addAll((Collection<? extends ExtendedProperties>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -358,11 +324,8 @@ public class ExtendedObjectImpl extends AbstractObjectImpl implements ExtendedOb
       case JSchemaPackage.EXTENDED_OBJECT__INCLUDE_OBJECTS:
         setIncludeObjects((Includes)null);
         return;
-      case JSchemaPackage.EXTENDED_OBJECT__OVER_RIDDEN_PROPERTIES:
-        getOverRiddenProperties().clear();
-        return;
-      case JSchemaPackage.EXTENDED_OBJECT__PROPERTIES:
-        getProperties().clear();
+      case JSchemaPackage.EXTENDED_OBJECT__BODY:
+        getBody().clear();
         return;
     }
     super.eUnset(featureID);
@@ -384,10 +347,8 @@ public class ExtendedObjectImpl extends AbstractObjectImpl implements ExtendedOb
         return EXTENDS_ID_EDEFAULT == null ? extendsID != null : !EXTENDS_ID_EDEFAULT.equals(extendsID);
       case JSchemaPackage.EXTENDED_OBJECT__INCLUDE_OBJECTS:
         return includeObjects != null;
-      case JSchemaPackage.EXTENDED_OBJECT__OVER_RIDDEN_PROPERTIES:
-        return overRiddenProperties != null && !overRiddenProperties.isEmpty();
-      case JSchemaPackage.EXTENDED_OBJECT__PROPERTIES:
-        return properties != null && !properties.isEmpty();
+      case JSchemaPackage.EXTENDED_OBJECT__BODY:
+        return body != null && !body.isEmpty();
     }
     return super.eIsSet(featureID);
   }

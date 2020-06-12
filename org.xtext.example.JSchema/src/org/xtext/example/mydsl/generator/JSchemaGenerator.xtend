@@ -19,6 +19,7 @@ import org.xtext.example.mydsl.generator.ObjectClass
 import org.xtext.example.mydsl.jSchema.PrimitiveProperties
 import org.xtext.example.mydsl.jSchema.ExtendedObject
 import java.util.Iterator
+import org.xtext.example.mydsl.jSchema.ExtendedProperties
 
 /**
  * Generates code from your model files on save.
@@ -189,15 +190,22 @@ class JSchemaGenerator extends AbstractGenerator {
 			
 			System.out.println("ExtendedObjects included prim objects: " + tempObject.includedPrimitiveObjects.size())
 			
+			for(ExtendedProperties property : obj.getBody){
+				if(property.override !== null){
+					if(property.extendedProperties.properties.propPrim.type.string !== null){
+					System.out.println("Overridden String Property: " + property.extendedProperties.properties.propPrim.type.string)
+					} else if(property.extendedProperties.properties.propPrim.type.array !== null ){
+					System.out.println("Overridden Array Property: " + property.extendedProperties.properties.propPrim.type.array.arrayName)
+					}
+				}
+			}
+			
 			
 			
 			//Check if extended Object holds any nested properties or overidden properties. And check if nested properties does not exists on super
 			//and that overidden properties does in fact exists on super.
 			
-			if(obj.overRiddenProperties != null){
-				tempObject.setOveriddenObjectsList(getProperties(obj))
-				tempObject.overrideObjects
-			}
+			
 		}else{
 			//Show Error that Extended object does not exist
 			return null

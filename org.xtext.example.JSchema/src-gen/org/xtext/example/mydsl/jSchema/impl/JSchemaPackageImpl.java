@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.xtext.example.mydsl.jSchema.AbstractObject;
 import org.xtext.example.mydsl.jSchema.Array;
 import org.xtext.example.mydsl.jSchema.ExtendedObject;
+import org.xtext.example.mydsl.jSchema.ExtendedProperties;
 import org.xtext.example.mydsl.jSchema.FormatTypes;
 import org.xtext.example.mydsl.jSchema.Includes;
 import org.xtext.example.mydsl.jSchema.IsRoot;
@@ -76,6 +77,13 @@ public class JSchemaPackageImpl extends EPackageImpl implements JSchemaPackage
    * @generated
    */
   private EClass extendedObjectEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass extendedPropertiesEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -400,7 +408,7 @@ public class JSchemaPackageImpl extends EPackageImpl implements JSchemaPackage
    * @generated
    */
   @Override
-  public EReference getExtendedObject_OverRiddenProperties()
+  public EReference getExtendedObject_Body()
   {
     return (EReference)extendedObjectEClass.getEStructuralFeatures().get(3);
   }
@@ -411,9 +419,31 @@ public class JSchemaPackageImpl extends EPackageImpl implements JSchemaPackage
    * @generated
    */
   @Override
-  public EReference getExtendedObject_Properties()
+  public EClass getExtendedProperties()
   {
-    return (EReference)extendedObjectEClass.getEStructuralFeatures().get(4);
+    return extendedPropertiesEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getExtendedProperties_Override()
+  {
+    return (EAttribute)extendedPropertiesEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getExtendedProperties_ExtendedProperties()
+  {
+    return (EReference)extendedPropertiesEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -712,8 +742,11 @@ public class JSchemaPackageImpl extends EPackageImpl implements JSchemaPackage
     createEAttribute(extendedObjectEClass, EXTENDED_OBJECT__EX_OBJECT_NAME);
     createEAttribute(extendedObjectEClass, EXTENDED_OBJECT__EXTENDS_ID);
     createEReference(extendedObjectEClass, EXTENDED_OBJECT__INCLUDE_OBJECTS);
-    createEReference(extendedObjectEClass, EXTENDED_OBJECT__OVER_RIDDEN_PROPERTIES);
-    createEReference(extendedObjectEClass, EXTENDED_OBJECT__PROPERTIES);
+    createEReference(extendedObjectEClass, EXTENDED_OBJECT__BODY);
+
+    extendedPropertiesEClass = createEClass(EXTENDED_PROPERTIES);
+    createEAttribute(extendedPropertiesEClass, EXTENDED_PROPERTIES__OVERRIDE);
+    createEReference(extendedPropertiesEClass, EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
 
     primitiveTypesEClass = createEClass(PRIMITIVE_TYPES);
     createEAttribute(primitiveTypesEClass, PRIMITIVE_TYPES__STRING);
@@ -804,8 +837,11 @@ public class JSchemaPackageImpl extends EPackageImpl implements JSchemaPackage
     initEAttribute(getExtendedObject_ExObjectName(), ecorePackage.getEString(), "exObjectName", null, 0, 1, ExtendedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getExtendedObject_ExtendsID(), ecorePackage.getEString(), "extendsID", null, 0, 1, ExtendedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getExtendedObject_IncludeObjects(), this.getIncludes(), null, "includeObjects", null, 0, 1, ExtendedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExtendedObject_OverRiddenProperties(), this.gethasProperties(), null, "overRiddenProperties", null, 0, -1, ExtendedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExtendedObject_Properties(), this.gethasProperties(), null, "properties", null, 0, -1, ExtendedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExtendedObject_Body(), this.getExtendedProperties(), null, "body", null, 0, -1, ExtendedObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(extendedPropertiesEClass, ExtendedProperties.class, "ExtendedProperties", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getExtendedProperties_Override(), ecorePackage.getEString(), "override", null, 0, 1, ExtendedProperties.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExtendedProperties_ExtendedProperties(), this.gethasProperties(), null, "extendedProperties", null, 0, 1, ExtendedProperties.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(primitiveTypesEClass, PrimitiveTypes.class, "PrimitiveTypes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPrimitiveTypes_String(), ecorePackage.getEString(), "string", null, 0, 1, PrimitiveTypes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
