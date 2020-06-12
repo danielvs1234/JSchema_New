@@ -17,6 +17,8 @@ import java.util.ArrayList
 import org.xtext.example.mydsl.jSchema.hasProperties
 import org.xtext.example.mydsl.generator.ObjectClass
 import org.xtext.example.mydsl.jSchema.PrimitiveProperties
+import org.xtext.example.mydsl.jSchema.ExtendedObject
+import java.util.Iterator
 
 /**
  * Generates code from your model files on save.
@@ -30,6 +32,7 @@ class JSchemaGenerator extends AbstractGenerator {
 	  ArrayList<MainObject>	mainObjectList;
 	  ArrayList<ObjectClass> compiledMainObjects;
 	  ArrayList<PrimitiveObjectClass> compiledPrimitiveObjects;
+	  ArrayList<ExtendedObjectClass> compiledExtendedObjectList;
 	  FileController fileController;
 	  JsonFormatter jsonFormatter;
 	  
@@ -39,8 +42,10 @@ class JSchemaGenerator extends AbstractGenerator {
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 			primitiveObjectList = new ArrayList<PrimitiveObject>()
 			mainObjectList = new ArrayList<MainObject>()
-			compiledPrimitiveObjects = new ArrayList<PrimitiveObjectClass>();
-			compiledMainObjects = new ArrayList<ObjectClass>();
+			compiledPrimitiveObjects = new ArrayList<PrimitiveObjectClass>()
+			compiledMainObjects = new ArrayList<ObjectClass>()
+			compiledExtendedObjectList = new ArrayList<ExtendedObjectClass>()
+			
 			val abstractObjects = resource.allContents.filter(Model).next
 			jsonFormatter = new JsonFormatter();
 			fileController = new FileController(filePath)
@@ -69,20 +74,134 @@ class JSchemaGenerator extends AbstractGenerator {
 			}
 			
 			for (ObjectClass compiledObject : compiledMainObjects){
-			if(compiledObject.isRoot == true){
-				var StringBuilder stringBuilder = new StringBuilder();
-				stringBuilder.append("{\n")
-				stringBuilder.append(compiledObject.objectJSchemaString);
-				stringBuilder.append("\n}")
-				val formattedString = jsonFormatter.formatString(stringBuilder.toString())
-				System.out.println(formattedString)
-				fileController.writeFile(formattedString)
-				//fsa.generateFile("testFile.json", jsonFormatter.formatString(stringBuilder.toString()))
+				if(compiledObject.isRoot == true){
+					var StringBuilder stringBuilder = new StringBuilder();
+					stringBuilder.append("{\n")
+					stringBuilder.append(compiledObject.objectJSchemaString);
+					stringBuilder.append("\n}")
+					val formattedString = jsonFormatter.formatString(stringBuilder.toString())
+					System.out.println(formattedString)
+					fileController.writeFile(formattedString)
+					//fsa.generateFile("testFile.json", jsonFormatter.formatString(stringBuilder.toString()))
+					}
 				}
-			}
-				
+			
+			for (exObj : resource.allContents.toIterable.filter(ExtendedObject)){
+				//compileExtendedObjects
+				compiledExtendedObjectList.add(compileExtendedObject(exObj))
 			}
 			
+		}
+		
+	def ExtendedObjectClass compileExtendedObject(ExtendedObject obj){
+		var doesSuperObjectExist = false;
+		var ExtendedObjectClass tempObject;
+		var ObjectClass superObject;
+		
+		for(ObjectClass mainObj : compiledMainObjects){
+			if (obj.getExtendsID == mainObj.name){
+				doesSuperObjectExist = true;
+				superObject = mainObj
+			}
+		}
+		
+		if(doesSuperObjectExist == true){
+			tempObject = new ExtendedObjectClass(obj, superObject);
+			
+			//set included Objects from SuperObject
+			if(superObject.includedMainObjects.size() != 0){
+				tempObject.includedMainObjects = superObject.includedMainObjects
+			}
+			
+			if(superObject.includedPrimitiveObjects.size() != 0){
+				tempObject.includedPrimitiveObjects = superObject.includedPrimitiveObjects
+			}
+			
+			//check if ExtendedObject holds any includes, and if any duplicates are found, remove these before adding to ExtendedObject
+			val ArrayList<String> includeNameList = new ArrayList<String>()
+			if(obj.includeObjects !== null){
+				for(String str : obj.includeObjects.objectID){
+					includeNameList.add(str)
+				}
+				
+				val ArrayList<String> namesForDeletion = new ArrayList<String>()
+				for(String includedName : includeNameList){
+				
+					for(ObjectClass mainObj : compiledMainObjects){
+						if(mainObj.name == includedName){
+							for(ObjectClass alreadyAddedObject : tempObject.includedMainObjects){
+								if(alreadyAddedObject.name == includedName){
+									namesForDeletion.add(includedName)
+								}else {
+									//Show error stating that Included MainObject is already inherited
+								}
+							}
+						}
+					}
+				
+					for(PrimitiveObjectClass compPrimObj : compiledPrimitiveObjects){
+						if(compPrimObj.name == includedName){
+							for(PrimitiveObjectClass alreadyAddedPrimitiveObject : tempObject.includedPrimitiveObjects){
+								if(alreadyAddedPrimitiveObject.name == includedName){
+									namesForDeletion.add(includedName)
+								}else{
+									//Show Error stating that Included PrimObject is already inherited
+								}
+							}
+						}
+					}
+				}
+				
+				
+				if(includeNameList.size() != 0){
+					
+					//Remove objects already included through inheritance
+					var Iterator<String> iterator = includeNameList.iterator();
+						while (iterator.hasNext()) {
+						    val String name = iterator.next();
+						    for(String deletionName : namesForDeletion){
+						    	if(name == deletionName)
+						    	iterator.remove();
+						    }   
+						}
+					
+					
+					for(String objectName : includeNameList){
+						for(ObjectClass includedMainObject : compiledMainObjects){
+							if(includedMainObject.name == objectName){
+								tempObject.addMainObject(includedMainObject)
+							}
+						}
+						for(PrimitiveObjectClass includedPrimitiveObject : compiledPrimitiveObjects){
+							if(includedPrimitiveObject.name == objectName){
+								tempObject.addPrimitiveObject(includedPrimitiveObject)
+							}
+						}
+					}
+				}
+			}
+			
+			System.out.println("ExtendedObject Super Object Name: " + superObject.name) 
+			
+			System.out.println("Super Object included prim objects " + superObject.includedPrimitiveObjects.size()) 
+			
+			System.out.println("ExtendedObjects included main objects: " + tempObject.includedMainObjects.size())
+			
+			System.out.println("ExtendedObjects included prim objects: " + tempObject.includedPrimitiveObjects.size())
+			
+			
+		//	if(obj.overRiddenProperties != null){
+		//		tempObject.setOveriddenObjectsList(getProperties(obj))
+		//		tempObject.overrideObjects
+		//	}
+		}else{
+			//Show Error that Extended object does not exist
+			return null
+		}
+		
+		
+		return tempObject
+	}
 	
 			
 	def ObjectClass compileMainObject(MainObject obj){

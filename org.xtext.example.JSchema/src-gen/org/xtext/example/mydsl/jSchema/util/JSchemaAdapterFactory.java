@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.xtext.example.mydsl.jSchema.AbstractObject;
 import org.xtext.example.mydsl.jSchema.Array;
+import org.xtext.example.mydsl.jSchema.ExtendedObject;
 import org.xtext.example.mydsl.jSchema.Includes;
 import org.xtext.example.mydsl.jSchema.IsRoot;
 import org.xtext.example.mydsl.jSchema.JSchemaPackage;
@@ -110,6 +111,11 @@ public class JSchemaAdapterFactory extends AdapterFactoryImpl
       public Adapter casePrimitiveObject(PrimitiveObject object)
       {
         return createPrimitiveObjectAdapter();
+      }
+      @Override
+      public Adapter caseExtendedObject(ExtendedObject object)
+      {
+        return createExtendedObjectAdapter();
       }
       @Override
       public Adapter casePrimitiveTypes(PrimitiveTypes object)
@@ -239,6 +245,21 @@ public class JSchemaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPrimitiveObjectAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.jSchema.ExtendedObject <em>Extended Object</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.jSchema.ExtendedObject
+   * @generated
+   */
+  public Adapter createExtendedObjectAdapter()
   {
     return null;
   }

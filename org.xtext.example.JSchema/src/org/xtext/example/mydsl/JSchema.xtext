@@ -13,7 +13,7 @@ Number:
 ;
 
 AbstractObject:
-	MainObject | PrimitiveObject
+	MainObject | PrimitiveObject | ExtendedObject
 ;
 
 MainObject:
@@ -23,6 +23,13 @@ MainObject:
 
 PrimitiveObject:
 	type=PrimitiveTypes ('with' primitiveProperties+=PrimitiveProperties (',' primitiveProperties+=PrimitiveProperties)* ';' )? 
+;
+
+ExtendedObject:
+	exObjectName=ID 'extends' extendsID=STRING ('includes' includeObjects=Includes)? '{' 
+	((('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)
+	(',' ('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)*)? 
+		'}'
 ;
 
 

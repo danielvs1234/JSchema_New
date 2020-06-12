@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.util.Switch;
 
 import org.xtext.example.mydsl.jSchema.AbstractObject;
 import org.xtext.example.mydsl.jSchema.Array;
+import org.xtext.example.mydsl.jSchema.ExtendedObject;
 import org.xtext.example.mydsl.jSchema.Includes;
 import org.xtext.example.mydsl.jSchema.IsRoot;
 import org.xtext.example.mydsl.jSchema.JSchemaPackage;
@@ -118,6 +119,14 @@ public class JSchemaSwitch<T> extends Switch<T>
         PrimitiveObject primitiveObject = (PrimitiveObject)theEObject;
         T result = casePrimitiveObject(primitiveObject);
         if (result == null) result = caseAbstractObject(primitiveObject);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case JSchemaPackage.EXTENDED_OBJECT:
+      {
+        ExtendedObject extendedObject = (ExtendedObject)theEObject;
+        T result = caseExtendedObject(extendedObject);
+        if (result == null) result = caseAbstractObject(extendedObject);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -250,6 +259,22 @@ public class JSchemaSwitch<T> extends Switch<T>
    * @generated
    */
   public T casePrimitiveObject(PrimitiveObject object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Extended Object</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Extended Object</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseExtendedObject(ExtendedObject object)
   {
     return null;
   }

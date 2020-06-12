@@ -15,6 +15,7 @@ import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.xtext.example.mydsl.jSchema.Array;
+import org.xtext.example.mydsl.jSchema.ExtendedObject;
 import org.xtext.example.mydsl.jSchema.Includes;
 import org.xtext.example.mydsl.jSchema.IsRoot;
 import org.xtext.example.mydsl.jSchema.JSchemaPackage;
@@ -43,6 +44,9 @@ public class JSchemaSemanticSequencer extends AbstractDelegatingSemanticSequence
 			switch (semanticObject.eClass().getClassifierID()) {
 			case JSchemaPackage.ARRAY:
 				sequence_Array(context, (Array) semanticObject); 
+				return; 
+			case JSchemaPackage.EXTENDED_OBJECT:
+				sequence_ExtendedObject(context, (ExtendedObject) semanticObject); 
 				return; 
 			case JSchemaPackage.INCLUDES:
 				sequence_Includes(context, (Includes) semanticObject); 
@@ -87,6 +91,28 @@ public class JSchemaSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     (arrayName=ID (properties+=Property properties+=Property*)? arrayType=ArrayType?)
 	 */
 	protected void sequence_Array(ISerializationContext context, Array semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     AbstractObject returns ExtendedObject
+	 *     ExtendedObject returns ExtendedObject
+	 *
+	 * Constraint:
+	 *     (
+	 *         exObjectName=ID 
+	 *         extendsID=STRING 
+	 *         includeObjects=Includes? 
+	 *         (
+	 *             (overRiddenProperties+=hasProperties | properties+=hasProperties) 
+	 *             properties+=hasProperties? 
+	 *             (overRiddenProperties+=hasProperties? properties+=hasProperties?)*
+	 *         )?
+	 *     )
+	 */
+	protected void sequence_ExtendedObject(ISerializationContext context, ExtendedObject semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
