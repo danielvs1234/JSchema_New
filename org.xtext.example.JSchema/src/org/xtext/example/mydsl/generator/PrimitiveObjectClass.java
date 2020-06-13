@@ -67,6 +67,7 @@ public class PrimitiveObjectClass {
 	}
 	
 	
+	
 	public String getPrimitiveObjectString() {
 		StringBuilder string = new StringBuilder();
 		

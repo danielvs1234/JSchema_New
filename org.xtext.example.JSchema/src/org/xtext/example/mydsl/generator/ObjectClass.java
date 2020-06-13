@@ -15,6 +15,7 @@ public class ObjectClass{
 	
 	//Added for inheritance
 	ArrayList<ExtendedObjectClass> hasExtendedObjectPropertiesList;
+	ArrayList<ExtendedObjectClass> includedExtendedObjectPropertiesList;
 	
 	boolean isRoot;
 	MainObject mainObject;
@@ -24,7 +25,8 @@ public class ObjectClass{
 		includedPrimitiveObjects = new ArrayList<>();
 		hasMainObjectPropertiesList = new ArrayList<>();
 		hasPrimtiveObjectPropertiesList = new ArrayList<>();
-		//Addded for inheritance
+		//Addded for inheritance'
+		includedExtendedObjectPropertiesList = new ArrayList<>();
 		hasExtendedObjectPropertiesList = new ArrayList<>();
 		
 		mainObject = obj;
@@ -54,6 +56,10 @@ public class ObjectClass{
 		hasExtendedObjectPropertiesList.add(extObj);
 	}
 	
+	public void addExtendedObject(ExtendedObjectClass extObj) {
+		includedExtendedObjectPropertiesList.add(extObj);
+	}
+	
 	public ArrayList<ObjectClass> getMainObjects() {
 		return this.includedMainObjects;
 	}
@@ -62,6 +68,12 @@ public class ObjectClass{
 		return this.includedPrimitiveObjects;
 	}
 	
+	public ArrayList<PrimitiveObjectClass> getAllPrimitiveObjects(){
+		ArrayList<PrimitiveObjectClass> temp = new ArrayList<>();
+		temp.addAll(includedPrimitiveObjects);
+		temp.addAll(hasPrimtiveObjectPropertiesList);
+		return temp;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -117,15 +129,30 @@ public class ObjectClass{
 
 			}
 			
-			if(hasPrimtiveObjectPropertiesList.size() > 0 || includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0) {
+			if(hasPrimtiveObjectPropertiesList.size() > 0 || includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0 || includedExtendedObjectPropertiesList.size() > 0 | hasExtendedObjectPropertiesList.size() > 0) {
 				string.append(",\n");
 			}
 				
 		}
+		//Added for extension
+		if(hasExtendedObjectPropertiesList.size() > 0 )
+			if(hasMainObjectPropertiesList.size() == 0) {
+				string.append("\"properties\":{\n");
+			}
+		for(int i=0 ; i < hasExtendedObjectPropertiesList.size() ; i++) {
+			ExtendedObjectClass extObj = hasExtendedObjectPropertiesList.get(i);
+			string.append(extObj.getObjectJSchemaString());
+			if(i+1 < hasExtendedObjectPropertiesList.size()) {
+				string.append(",\n");
+			} else {
+				string.append("\n}");
+			}
+		}
+		//Added for extension
 		
 		if (hasPrimtiveObjectPropertiesList.size () > 0) {
-			if(hasMainObjectPropertiesList.size() == 0) {
-			string.append("\"properties\":{\n");
+			if(hasMainObjectPropertiesList.size() == 0 || hasExtendedObjectPropertiesList.size() == 0) {
+				string.append("\"properties\":{\n");
 			}
 			for(int i=0 ; i < hasPrimtiveObjectPropertiesList.size() ; i++) {
 				PrimitiveObjectClass primObj = hasPrimtiveObjectPropertiesList.get(i);
@@ -136,7 +163,7 @@ public class ObjectClass{
 					string.append("\n}");
 				}
 			}
-			if(includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0) {
+			if(includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0 || includedExtendedObjectPropertiesList.size() > 0) {
 				string.append(",\n");
 				
 			}
@@ -144,11 +171,14 @@ public class ObjectClass{
 		
 		
 		
-		if(hasPrimtiveObjectPropertiesList.size() == 0 && hasMainObjectPropertiesList.size() == 0 && (includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0)) {
+		if(hasPrimtiveObjectPropertiesList.size() == 0 && hasMainObjectPropertiesList.size() == 0 
+				&& hasExtendedObjectPropertiesList.size() == 0 
+				&& (includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0 || includedExtendedObjectPropertiesList.size() > 0)) {
+			
 			string.append("\"properties\":{\n");
 		}
 		
-		if(includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0) {
+		if(includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0 || includedExtendedObjectPropertiesList.size() > 0) {
 			string.append("\"allOf\":[\n");
 			
 			
@@ -166,10 +196,35 @@ public class ObjectClass{
 					string.append(",\n");
 				}
 			}
+			
+			
+			
+			
+			if(includedPrimitiveObjects.size() > 0 || includedExtendedObjectPropertiesList.size() > 0) {
+				string.append(",\n");
+			}
+		}
+		//added for extension
+		if(includedExtendedObjectPropertiesList.size() > 0) {
+			for (int i=0 ; i < includedExtendedObjectPropertiesList.size() ; i++) {
+				ExtendedObjectClass extObj = includedExtendedObjectPropertiesList.get(i);
+				string.append("{\n");
+				string.append("\"properties\":{\n");
+				string.append(extObj.getObjectJSchemaString());
+				string.append("\n}");
+				string.append("\n}");
+				
+				if(i+1 < includedExtendedObjectPropertiesList.size()) {
+					string.append(",\n");
+				}
+			}
+			
 			if(includedPrimitiveObjects.size() > 0) {
 				string.append(",\n");
 			}
 		}
+		//added for extension
+		
 		if(includedPrimitiveObjects.size() > 0) {
 			for(int i=0 ; i < includedPrimitiveObjects.size(); i++) {
 				PrimitiveObjectClass primObj = includedPrimitiveObjects.get(i);
@@ -186,7 +241,9 @@ public class ObjectClass{
 		
 		string.append("\n]");
 		
-		if(hasPrimtiveObjectPropertiesList.size() == 0 && hasMainObjectPropertiesList.size() == 0 && (includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0)) {
+		if(hasPrimtiveObjectPropertiesList.size() == 0 && hasMainObjectPropertiesList.size() == 0 && hasExtendedObjectPropertiesList.size() == 0 && (includedPrimitiveObjects.size() > 0 
+				|| includedMainObjects.size() > 0 
+				|| includedExtendedObjectPropertiesList.size() > 0)) {
 			string.append("\n}");
 		}
 		}

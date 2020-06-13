@@ -20,6 +20,7 @@ import org.xtext.example.mydsl.jSchema.PrimitiveProperties
 import org.xtext.example.mydsl.jSchema.ExtendedObject
 import java.util.Iterator
 import org.xtext.example.mydsl.jSchema.ExtendedProperties
+import com.google.gson.stream.MalformedJsonException
 
 /**
  * Generates code from your model files on save.
@@ -74,6 +75,13 @@ class JSchemaGenerator extends AbstractGenerator {
 			compiledMainObjects.add(compileMainObject(obj));
 
 		}
+			for (exObj : resource.allContents.toIterable.filter(ExtendedObject)) {
+				// compileExtendedObjects
+				val ExtendedObjectClass extendedObj = compileExtendedObject(exObj)
+				if(extendedObj !== null){
+				compiledExtendedObjectList.add(extendedObj)
+				}
+		}
 
 		for (ObjectClass compiledObject : compiledMainObjects) {
 			if (compiledObject.isRoot == true) {
@@ -81,17 +89,16 @@ class JSchemaGenerator extends AbstractGenerator {
 				stringBuilder.append("{\n")
 				stringBuilder.append(compiledObject.objectJSchemaString);
 				stringBuilder.append("\n}")
-				val formattedString = jsonFormatter.formatString(stringBuilder.toString())
-				System.out.println(formattedString)
-				fileController.writeFile(formattedString)
+			//	val formattedString = jsonFormatter.formatString(stringBuilder.toString())
+				System.out.println(stringBuilder.toString)
+				
+			//	System.out.println(formattedString)
+			//	fileController.writeFile(formattedString)
 			// fsa.generateFile("testFile.json", jsonFormatter.formatString(stringBuilder.toString()))
 			}
 		}
 
-		for (exObj : resource.allContents.toIterable.filter(ExtendedObject)) {
-			// compileExtendedObjects
-			compiledExtendedObjectList.add(compileExtendedObject(exObj))
-		}
+	
 
 	}
 
@@ -220,6 +227,7 @@ class JSchemaGenerator extends AbstractGenerator {
 							var Iterator<PrimitiveObjectClass> iterator = superPrimitiveProperties.iterator();
 							while(iterator.hasNext()){
 								val PrimitiveObjectClass object = iterator.next();
+								//Check if PrimitiveObject is a String
 								if(primitiveObjectName == object.valString){
 									var ArrayList<PrimitiveProperties> propertyStringProperties = getPrimProperties(property.extendedProperties.properties.propPrim)
 									var ArrayList<PrimitiveProperties> superStringProperties = object.stringProperties
@@ -267,13 +275,34 @@ class JSchemaGenerator extends AbstractGenerator {
 								}
 							}
 							
-							
+						//Else Check if overridden property is of type array.
 						}else if (property.extendedProperties.properties.propPrim.type.array !== null){
+							
+							var ArrayList<PrimitiveObjectClass> superObjectPrims = superObject.getAllPrimitiveObjects()
+							val arrayName = property.extendedProperties.properties.propPrim.type.array.arrayName
+							for(PrimitiveObjectClass primObj : superObjectPrims){
+								if(primObj.primitiveObject.type.array !== null){
+									if(arrayName == primObj.name){
+										//If array already exists in the primitive properties of the super object, then compile the new array and at it to tempObject
+										tempObject.addHasPrimObj(compilePrimitiveObject(property.extendedProperties.properties.propPrim))
+									}
+								}
+							}
 							
 						}else if (property.extendedProperties.properties.propPrim.type.number !== null){
 							
-						}
-						
+							var ArrayList<PrimitiveObjectClass> superObjectPrims = superObject.getAllPrimitiveObjects()
+							val numberValue = property.extendedProperties.properties.propPrim.type.number.number
+							
+							for(PrimitiveObjectClass primObj : superObjectPrims){
+								if(primObj.primitiveObject.type.number !== null){
+									if(numberValue == Integer.parseInt(primObj.valNumber)){
+										//If number already exists in super Object, compile new number.
+										tempObject.addHasPrimObj(compilePrimitiveObject(property.extendedProperties.properties.propPrim))
+									}
+								}
+							}
+						}		
 					}
 				}else {
 					//Compile objects if they are not overriden, but first check if they are actually part of the super Object both nested and included
@@ -329,17 +358,39 @@ class JSchemaGenerator extends AbstractGenerator {
 								doesPrimObjectExists = true
 								//Show error stating that new nested Main Object is already inherited from super object, and add the object from super
 								System.out.println("Nested Primitive object is already inherited from Super object (nested object name: "+ object.name)
-								//tempObject.addHasPrimObj(object)
 							}
 					}
 						if(doesPrimObjectExists == false){
 							//Add nested object to the tempObject of type ExtendedObjectClass
-							
 							tempObject.addHasPrimObj(compilePrimitiveObject(property.extendedProperties.properties.propPrim))
 						}
 					}
 				}
 			
+			}
+			
+			//Add all remaining nested objects from the Super Object to the Extended Object.
+			var ArrayList<PrimitiveObjectClass> superObjectPrimitiveObjects = superObject.getAllPrimitiveObjects
+			var ArrayList<PrimitiveObjectClass> alreadyAddedObjects = tempObject.getAllPrimitiveObjects
+			
+			var Iterator<PrimitiveObjectClass> primIterator = superObjectPrimitiveObjects.iterator()
+				while(primIterator.hasNext()){
+					val PrimitiveObjectClass supPrimObj = primIterator.next()
+					for(PrimitiveObjectClass exPrimObj : alreadyAddedObjects){
+						if(supPrimObj.valNumber === null){
+							if(supPrimObj.name == exPrimObj.name){
+								primIterator.remove()
+							}
+						}else{
+							if(supPrimObj.valNumber == exPrimObj.valNumber){
+								primIterator.remove()
+							}
+						}
+					}	
+			}
+			
+			for(PrimitiveObjectClass superObjectForAddition : superObjectPrimitiveObjects){
+				tempObject.addHasPrimObj(superObjectForAddition)
 			}
 			
 			//Test printer
@@ -359,6 +410,7 @@ class JSchemaGenerator extends AbstractGenerator {
 			} 
 		
 		}else {
+			System.out.println("SuperObject does not exist!")
 			// Show Error that Extended object does not exist
 			return null
 		}
@@ -395,6 +447,11 @@ class JSchemaGenerator extends AbstractGenerator {
 						}
 					}
 				}
+				for (ExtendedObjectClass compExtObject : compiledExtendedObjectList) {
+					if(compExtObject.name == includedName) {
+						tempObject.addExtendedObject(compExtObject);
+					}
+				}
 			}
 
 			for (hasProperties e : getProperties(obj)) {
@@ -404,6 +461,9 @@ class JSchemaGenerator extends AbstractGenerator {
 				} else if (e.properties.propObj !== null) {
 					System.out.println("hasProperties = nested Main Object");
 					tempObject.addHasMainObj(compileMainObject(e.properties.propObj));
+				} else if (e.properties.propExtObj !== null) {
+					System.out.println("hasProperties = nested Extended Object");
+					tempObject.addHasExtendedObj(compileExtendedObject(e.properties.propExtObj));
 				}
 			}
 
