@@ -264,7 +264,6 @@ class JSchemaGenerator extends AbstractGenerator {
 								val PrimitiveObjectClass tempPrimObject = compilePrimitiveObject(property.extendedProperties.properties.propPrim)
 								tempPrimObject.stringProperties = tempObjectProperties
 								tempObject.addHasPrimObj(tempPrimObject)
-								System.out.println("ExtendedObject now has " + tempObject.hasPrimtiveObjectPropertiesList.size() + "Primitive Object(s)")
 								}
 							}
 							
@@ -282,8 +281,8 @@ class JSchemaGenerator extends AbstractGenerator {
 						//check for main objects first
 						
 						val allegedlyNewMainObjectName = property.extendedProperties.properties.propObj.objectName
-						var ArrayList<ObjectClass> containedObjectInSuper = new ArrayList<ObjectClass>
 						
+						var ArrayList<ObjectClass> containedObjectInSuper = new ArrayList<ObjectClass>
 						for(ObjectClass superNestedMainObject : superObject.hasMainObjectPropertiesList){
 							containedObjectInSuper.add(superNestedMainObject)
 						}
@@ -299,7 +298,7 @@ class JSchemaGenerator extends AbstractGenerator {
 								System.out.println("Nested object is already inherited from Super object (nested object name: "+ object.getName)
 							}
 						}
-						if(doesObjectExists = false){
+						if(doesObjectExists == false){
 							//Add nested object to the tempObject of type ExtendedObjectClass
 							tempObject.addHasMainObj(compileMainObject(property.extendedProperties.properties.propObj))
 						}
@@ -328,20 +327,36 @@ class JSchemaGenerator extends AbstractGenerator {
 					for(PrimitiveObjectClass object : containedPrimObjectInSuper){
 							if(object.name == allegedlyNewPrimObjectName){
 								doesPrimObjectExists = true
-								//Show error stating that new nested Main Object is already inherited from super object
+								//Show error stating that new nested Main Object is already inherited from super object, and add the object from super
 								System.out.println("Nested Primitive object is already inherited from Super object (nested object name: "+ object.name)
+								//tempObject.addHasPrimObj(object)
 							}
 					}
-						if(doesPrimObjectExists = false){
+						if(doesPrimObjectExists == false){
 							//Add nested object to the tempObject of type ExtendedObjectClass
+							
 							tempObject.addHasPrimObj(compilePrimitiveObject(property.extendedProperties.properties.propPrim))
 						}
 					}
 				}
 			
 			}
+			
+			//Test printer
 			System.out.println("Extended Object now has " + (tempObject.hasMainObjectPropertiesList.size + tempObject.includedMainObjects.size) + " main objects")
+			for(ObjectClass mainObject : tempObject.hasMainObjectPropertiesList){
+				System.out.println("Nested: " + mainObject.getName)
+			}
+			for(ObjectClass mainObject : tempObject.includedMainObjects){
+				System.out.println("Included: " + mainObject.getName)
+			}
 			System.out.println("Extended Object now has " + (tempObject.hasPrimtiveObjectPropertiesList.size + tempObject.includedPrimitiveObjects.size) + " Primitive objects")	
+			for(PrimitiveObjectClass primObj : tempObject.hasPrimtiveObjectPropertiesList){
+				System.out.println("Nested: " + primObj.name)
+			}
+			for(PrimitiveObjectClass primObj : tempObject.includedPrimitiveObjects){
+				System.out.println("Included: " + primObj.name)
+			} 
 		
 		}else {
 			// Show Error that Extended object does not exist
