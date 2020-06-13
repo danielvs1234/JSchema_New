@@ -182,14 +182,6 @@ class JSchemaGenerator extends AbstractGenerator {
 				}
 			}
 
-			System.out.println("ExtendedObject Super Object Name: " + superObject.name)
-
-			System.out.println("Super Object included prim objects " + superObject.includedPrimitiveObjects.size())
-
-			System.out.println("ExtendedObjects included main objects: " + tempObject.includedMainObjects.size())
-
-			System.out.println("ExtendedObjects included prim objects: " + tempObject.includedPrimitiveObjects.size())
-
 			// Check if extended Object holds any nested properties or overidden properties. And check if nested properties does not exists on super
 			// and that overidden properties does in fact exists on super.
 			val ArrayList<ObjectClass> superMainObjectProperties = superObject.hasMainObjectPropertiesList
@@ -199,7 +191,10 @@ class JSchemaGenerator extends AbstractGenerator {
 			for (ExtendedProperties property : obj.getBody) {
 
 				if (property.override !== null) {
+					
+					//Check if overridden property is of type Main Object
 					if (property.extendedProperties.properties.propObj !== null) {
+						val sizeOfsuperMainObjectPropertiesBeforeRemoval = superMainObjectProperties.size()
 						val propertyName = property.extendedProperties.properties.propObj.objectName
 
 						// Remove Main Objects from list of inherited objects, if object name, matches overridden object name
@@ -208,22 +203,154 @@ class JSchemaGenerator extends AbstractGenerator {
 							val ObjectClass object = iterator.next();
 							if (propertyName == object.getName) {
 								iterator.remove();
-								System.out.println("Removing main object: " + object.getName)
 								tempObject.addHasMainObj(compileMainObject(property.extendedProperties.properties.propObj))
-								System.out.println("ExtendedObject now has " + tempObject.hasMainObjectPropertiesList.size() + " MainObj Properties")
 							}
+						}
+						
+						if(sizeOfsuperMainObjectPropertiesBeforeRemoval == superMainObjectProperties.size()){
+							//Show error that Overridden property does not exist on SuperObject
+							System.out.println("SuperObject does not contain: " + propertyName)
+						}
+						
+					//Else check if overridden property is of type Primitive Object
+					}else if(property.extendedProperties.properties.propPrim !== null){
+						
+						if(property.extendedProperties.properties.propPrim.type.string !== null){
+							val primitiveObjectName = property.extendedProperties.properties.propPrim.type.string
+							var Iterator<PrimitiveObjectClass> iterator = superPrimitiveProperties.iterator();
+							while(iterator.hasNext()){
+								val PrimitiveObjectClass object = iterator.next();
+								if(primitiveObjectName == object.valString){
+									var ArrayList<PrimitiveProperties> propertyStringProperties = getPrimProperties(property.extendedProperties.properties.propPrim)
+									var ArrayList<PrimitiveProperties> superStringProperties = object.stringProperties
+									var ArrayList<PrimitiveProperties> tempObjectProperties = new ArrayList<PrimitiveProperties>
+									
+									//Check if any String properties match the super String properties, and if so remove them from the list to avoid duplicates
+									//By removing any duplicates from the superStringProperties list, the code can add both the String properties from the overriden
+									//object, but also from the super object, without duplicates.
+									for(PrimitiveProperties pProp : propertyStringProperties){
+									
+									if(pProp.stringLength !== null){	
+										var Iterator<PrimitiveProperties> primIterator = superStringProperties.iterator()
+										while(primIterator.hasNext()){
+											val PrimitiveProperties current = primIterator.next()
+											if(current.stringLength !== null){
+												primIterator.remove()
+											}
+										}
+									} else if(pProp.patternString !== null){
+										var Iterator<PrimitiveProperties> primIterator = superStringProperties.iterator()
+										while(primIterator.hasNext()){
+											val PrimitiveProperties current = primIterator.next()
+											if(current.patternString !== null){
+												primIterator.remove()
+											}
+										}
+									} else if(pProp.stringFormat !== null){
+										var Iterator<PrimitiveProperties> primIterator = superStringProperties.iterator()
+										while(primIterator.hasNext()){
+											val PrimitiveProperties current = primIterator.next()
+											if(current.patternString !== null){
+												primIterator.remove()
+											}
+										}
+									}
+								}
+								tempObjectProperties.addAll(superStringProperties)
+								tempObjectProperties.addAll(propertyStringProperties)
+								
+								iterator.remove()
+								
+								val PrimitiveObjectClass tempPrimObject = compilePrimitiveObject(property.extendedProperties.properties.propPrim)
+								tempPrimObject.stringProperties = tempObjectProperties
+								tempObject.addHasPrimObj(tempPrimObject)
+								System.out.println("ExtendedObject now has " + tempObject.hasPrimtiveObjectPropertiesList.size() + "Primitive Object(s)")
+								}
+							}
+							
+							
+						}else if (property.extendedProperties.properties.propPrim.type.array !== null){
+							
+						}else if (property.extendedProperties.properties.propPrim.type.number !== null){
+							
+						}
+						
+					}
+				}else {
+					//Compile objects if they are not overriden, but first check if they are actually part of the super Object both nested and included
+					if(property.extendedProperties.properties.propObj !== null){
+						//check for main objects first
+						
+						val allegedlyNewMainObjectName = property.extendedProperties.properties.propObj.objectName
+						var ArrayList<ObjectClass> containedObjectInSuper = new ArrayList<ObjectClass>
+						
+						for(ObjectClass superNestedMainObject : superObject.hasMainObjectPropertiesList){
+							containedObjectInSuper.add(superNestedMainObject)
+						}
+						for(ObjectClass superIncludedMainObject : superObject.includedMainObjects){
+							containedObjectInSuper.add(superIncludedMainObject)
+						}
+						
+						var doesObjectExists = false
+						for(ObjectClass object : containedObjectInSuper){
+							if(object.getName == allegedlyNewMainObjectName){
+								doesObjectExists = true
+								//Show error stating that new nested Main Object is already inherited from super object
+								System.out.println("Nested object is already inherited from Super object (nested object name: "+ object.getName)
+							}
+						}
+						if(doesObjectExists = false){
+							//Add nested object to the tempObject of type ExtendedObjectClass
+							tempObject.addHasMainObj(compileMainObject(property.extendedProperties.properties.propObj))
+						}
+						
+					} else if(property.extendedProperties.properties.propPrim !== null){
+						//Check for primitiveObjects
+						var allegedlyNewPrimObjectName = ""
+						if(property.extendedProperties.properties.propPrim.type.string !== null){
+							allegedlyNewPrimObjectName = property.extendedProperties.properties.propPrim.type.string
+						}else if(property.extendedProperties.properties.propPrim.type.array !== null){
+							allegedlyNewPrimObjectName = property.extendedProperties.properties.propPrim.type.array.arrayName
+						}else if(property.extendedProperties.properties.propPrim.type.number !== null){
+							allegedlyNewPrimObjectName = ""+property.extendedProperties.properties.propPrim.type.number.number
+						}
+					
+					var ArrayList<PrimitiveObjectClass> containedPrimObjectInSuper = new ArrayList<PrimitiveObjectClass>
+					
+					for(PrimitiveObjectClass pObjNest : superObject.hasPrimtiveObjectPropertiesList){
+						containedPrimObjectInSuper.add(pObjNest)
+					}
+					for(PrimitiveObjectClass pObjIncl : superObject.includedPrimitiveObjects){
+						containedPrimObjectInSuper.add(pObjIncl)
+					}
+					
+					var doesPrimObjectExists = false
+					for(PrimitiveObjectClass object : containedPrimObjectInSuper){
+							if(object.name == allegedlyNewPrimObjectName){
+								doesPrimObjectExists = true
+								//Show error stating that new nested Main Object is already inherited from super object
+								System.out.println("Nested Primitive object is already inherited from Super object (nested object name: "+ object.name)
+							}
+					}
+						if(doesPrimObjectExists = false){
+							//Add nested object to the tempObject of type ExtendedObjectClass
+							tempObject.addHasPrimObj(compilePrimitiveObject(property.extendedProperties.properties.propPrim))
 						}
 					}
 				}
+			
 			}
-
-		} else {
+			System.out.println("Extended Object now has " + (tempObject.hasMainObjectPropertiesList.size + tempObject.includedMainObjects.size) + " main objects")
+			System.out.println("Extended Object now has " + (tempObject.hasPrimtiveObjectPropertiesList.size + tempObject.includedPrimitiveObjects.size) + " Primitive objects")	
+		
+		}else {
 			// Show Error that Extended object does not exist
 			return null
 		}
 
 		return tempObject
 	}
+
 
 	def ObjectClass compileMainObject(MainObject obj) {
 		var boolean isRoot = false
@@ -341,6 +468,16 @@ class JSchemaGenerator extends AbstractGenerator {
 			propertyList.add(e);
 		}
 		return propertyList
+	}
+	
+	def ArrayList<PrimitiveProperties> getPrimProperties(PrimitiveObject obj){
+		var ArrayList<PrimitiveProperties> tempArrayList = new ArrayList<PrimitiveProperties>
+		if(obj.type.string !== null){
+			for (PrimitiveProperties e : obj.primitiveProperties){
+				tempArrayList.add(e)
+			}
+		return tempArrayList
+		}
 	}
 
 }
