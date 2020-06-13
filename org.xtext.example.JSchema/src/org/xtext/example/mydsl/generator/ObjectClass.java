@@ -163,10 +163,10 @@ public class ObjectClass{
 					string.append("\n}");
 				}
 			}
-			if(includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0 || includedExtendedObjectPropertiesList.size() > 0) {
-				string.append(",\n");
-				
-			}
+		}
+		
+		if(includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0 || includedExtendedObjectPropertiesList.size() > 0) {
+			string.append(",\n");
 		}
 		
 		

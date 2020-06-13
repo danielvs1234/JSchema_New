@@ -89,11 +89,11 @@ class JSchemaGenerator extends AbstractGenerator {
 				stringBuilder.append("{\n")
 				stringBuilder.append(compiledObject.objectJSchemaString);
 				stringBuilder.append("\n}")
-			//	val formattedString = jsonFormatter.formatString(stringBuilder.toString())
-				System.out.println(stringBuilder.toString)
+				val formattedString = jsonFormatter.formatString(stringBuilder.toString())
+				//System.out.println(stringBuilder.toString)
 				
-			//	System.out.println(formattedString)
-			//	fileController.writeFile(formattedString)
+				System.out.println(formattedString)
+				fileController.writeFile(formattedString)
 			// fsa.generateFile("testFile.json", jsonFormatter.formatString(stringBuilder.toString()))
 			}
 		}
@@ -393,6 +393,8 @@ class JSchemaGenerator extends AbstractGenerator {
 				tempObject.addHasPrimObj(superObjectForAddition)
 			}
 			
+			
+			
 			//Test printer
 			System.out.println("Extended Object now has " + (tempObject.hasMainObjectPropertiesList.size + tempObject.includedMainObjects.size) + " main objects")
 			for(ObjectClass mainObject : tempObject.hasMainObjectPropertiesList){
@@ -408,6 +410,8 @@ class JSchemaGenerator extends AbstractGenerator {
 			for(PrimitiveObjectClass primObj : tempObject.includedPrimitiveObjects){
 				System.out.println("Included: " + primObj.name)
 			} 
+			
+			
 		
 		}else {
 			System.out.println("SuperObject does not exist!")
