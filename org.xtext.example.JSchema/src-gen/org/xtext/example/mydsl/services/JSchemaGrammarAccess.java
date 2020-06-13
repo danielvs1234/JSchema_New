@@ -440,12 +440,14 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPropPrimPrimitiveObjectParserRuleCall_0_0 = (RuleCall)cPropPrimAssignment_0.eContents().get(0);
 		private final Assignment cPropObjAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final RuleCall cPropObjMainObjectParserRuleCall_1_0 = (RuleCall)cPropObjAssignment_1.eContents().get(0);
+		private final Assignment cPropExtObjAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
+		private final RuleCall cPropExtObjExtendedObjectParserRuleCall_2_0 = (RuleCall)cPropExtObjAssignment_2.eContents().get(0);
 		
 		//Property:
-		//	propPrim=PrimitiveObject | propObj=MainObject;
+		//	propPrim=PrimitiveObject | propObj=MainObject | propExtObj=ExtendedObject;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//propPrim=PrimitiveObject | propObj=MainObject
+		//propPrim=PrimitiveObject | propObj=MainObject | propExtObj=ExtendedObject
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//propPrim=PrimitiveObject
@@ -459,6 +461,12 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//MainObject
 		public RuleCall getPropObjMainObjectParserRuleCall_1_0() { return cPropObjMainObjectParserRuleCall_1_0; }
+		
+		//propExtObj=ExtendedObject
+		public Assignment getPropExtObjAssignment_2() { return cPropExtObjAssignment_2; }
+		
+		//ExtendedObject
+		public RuleCall getPropExtObjExtendedObjectParserRuleCall_2_0() { return cPropExtObjExtendedObjectParserRuleCall_2_0; }
 	}
 	public class PrimitivePropertiesElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.JSchema.PrimitiveProperties");
@@ -1015,7 +1023,7 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//Property:
-	//	propPrim=PrimitiveObject | propObj=MainObject;
+	//	propPrim=PrimitiveObject | propObj=MainObject | propExtObj=ExtendedObject;
 	public PropertyElements getPropertyAccess() {
 		return pProperty;
 	}

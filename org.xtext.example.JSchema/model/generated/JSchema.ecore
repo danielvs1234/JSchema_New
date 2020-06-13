@@ -58,6 +58,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propObj" eType="#//MainObject"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propExtObj" eType="#//ExtendedObject"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PrimitiveProperties">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="stringLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

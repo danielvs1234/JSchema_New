@@ -233,7 +233,7 @@ public class JSchemaSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     Property returns Property
 	 *
 	 * Constraint:
-	 *     (propPrim=PrimitiveObject | propObj=MainObject)
+	 *     (propPrim=PrimitiveObject | propObj=MainObject | propExtObj=ExtendedObject)
 	 */
 	protected void sequence_Property(ISerializationContext context, Property semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

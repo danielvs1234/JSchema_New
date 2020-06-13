@@ -13,6 +13,9 @@ public class ObjectClass{
 	ArrayList<ObjectClass> hasMainObjectPropertiesList;
 	ArrayList<PrimitiveObjectClass> hasPrimtiveObjectPropertiesList;
 	
+	//Added for inheritance
+	ArrayList<ExtendedObjectClass> hasExtendedObjectPropertiesList;
+	
 	boolean isRoot;
 	MainObject mainObject;
 	
@@ -21,6 +24,8 @@ public class ObjectClass{
 		includedPrimitiveObjects = new ArrayList<>();
 		hasMainObjectPropertiesList = new ArrayList<>();
 		hasPrimtiveObjectPropertiesList = new ArrayList<>();
+		//Addded for inheritance
+		hasExtendedObjectPropertiesList = new ArrayList<>();
 		
 		mainObject = obj;
 		this.name = name;
@@ -42,6 +47,11 @@ public class ObjectClass{
 	
 	public void addHasMainObj(ObjectClass mainObj) {
 		hasMainObjectPropertiesList.add(mainObj);
+	}
+	
+	//Added for inheritance
+	public void addHasExtendedObj(ExtendedObjectClass extObj) {
+		hasExtendedObjectPropertiesList.add(extObj);
 	}
 	
 	public ArrayList<ObjectClass> getMainObjects() {

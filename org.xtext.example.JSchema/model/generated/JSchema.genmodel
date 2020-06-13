@@ -67,6 +67,7 @@
     <genClasses ecoreClass="JSchema.ecore#//Property">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference JSchema.ecore#//Property/propPrim"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference JSchema.ecore#//Property/propObj"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference JSchema.ecore#//Property/propExtObj"/>
     </genClasses>
     <genClasses ecoreClass="JSchema.ecore#//PrimitiveProperties">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute JSchema.ecore#//PrimitiveProperties/stringLength"/>

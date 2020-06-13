@@ -573,6 +573,17 @@ public class JSchemaPackageImpl extends EPackageImpl implements JSchemaPackage
    * @generated
    */
   @Override
+  public EReference getProperty_PropExtObj()
+  {
+    return (EReference)propertyEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getPrimitiveProperties()
   {
     return primitivePropertiesEClass;
@@ -762,6 +773,7 @@ public class JSchemaPackageImpl extends EPackageImpl implements JSchemaPackage
     propertyEClass = createEClass(PROPERTY);
     createEReference(propertyEClass, PROPERTY__PROP_PRIM);
     createEReference(propertyEClass, PROPERTY__PROP_OBJ);
+    createEReference(propertyEClass, PROPERTY__PROP_EXT_OBJ);
 
     primitivePropertiesEClass = createEClass(PRIMITIVE_PROPERTIES);
     createEAttribute(primitivePropertiesEClass, PRIMITIVE_PROPERTIES__STRING_LENGTH);
@@ -857,6 +869,7 @@ public class JSchemaPackageImpl extends EPackageImpl implements JSchemaPackage
     initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getProperty_PropPrim(), this.getPrimitiveObject(), null, "propPrim", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getProperty_PropObj(), this.getMainObject(), null, "propObj", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getProperty_PropExtObj(), this.getExtendedObject(), null, "propExtObj", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(primitivePropertiesEClass, PrimitiveProperties.class, "PrimitiveProperties", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPrimitiveProperties_StringLength(), ecorePackage.getEString(), "stringLength", null, 0, 1, PrimitiveProperties.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

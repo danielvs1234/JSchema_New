@@ -535,6 +535,12 @@ rule__Property__Alternatives
 		(rule__Property__PropObjAssignment_1)
 		{ after(grammarAccess.getPropertyAccess().getPropObjAssignment_1()); }
 	)
+	|
+	(
+		{ before(grammarAccess.getPropertyAccess().getPropExtObjAssignment_2()); }
+		(rule__Property__PropExtObjAssignment_2)
+		{ after(grammarAccess.getPropertyAccess().getPropExtObjAssignment_2()); }
+	)
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -2843,6 +2849,21 @@ rule__Property__PropObjAssignment_1
 		{ before(grammarAccess.getPropertyAccess().getPropObjMainObjectParserRuleCall_1_0()); }
 		ruleMainObject
 		{ after(grammarAccess.getPropertyAccess().getPropObjMainObjectParserRuleCall_1_0()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Property__PropExtObjAssignment_2
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	(
+		{ before(grammarAccess.getPropertyAccess().getPropExtObjExtendedObjectParserRuleCall_2_0()); }
+		ruleExtendedObject
+		{ after(grammarAccess.getPropertyAccess().getPropExtObjExtendedObjectParserRuleCall_2_0()); }
 	)
 ;
 finally {

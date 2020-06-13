@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.jSchema.Property#getPropPrim <em>Prop Prim</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.jSchema.Property#getPropObj <em>Prop Obj</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.jSchema.Property#getPropExtObj <em>Prop Ext Obj</em>}</li>
  * </ul>
  *
  * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#getProperty()
@@ -67,5 +68,27 @@ public interface Property extends EObject
    * @generated
    */
   void setPropObj(MainObject value);
+
+  /**
+   * Returns the value of the '<em><b>Prop Ext Obj</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Prop Ext Obj</em>' containment reference.
+   * @see #setPropExtObj(ExtendedObject)
+   * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#getProperty_PropExtObj()
+   * @model containment="true"
+   * @generated
+   */
+  ExtendedObject getPropExtObj();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.jSchema.Property#getPropExtObj <em>Prop Ext Obj</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Prop Ext Obj</em>' containment reference.
+   * @see #getPropExtObj()
+   * @generated
+   */
+  void setPropExtObj(ExtendedObject value);
 
 } // Property

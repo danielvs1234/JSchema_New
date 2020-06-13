@@ -54,7 +54,7 @@ hasProperties:
 ;
 
 Property:
- 	propPrim=PrimitiveObject | propObj=MainObject
+ 	propPrim=PrimitiveObject | propObj=MainObject | propExtObj=ExtendedObject
 ;
 
 PrimitiveProperties:

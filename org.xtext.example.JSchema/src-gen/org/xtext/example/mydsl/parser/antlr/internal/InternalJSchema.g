@@ -831,6 +831,26 @@ ruleProperty returns [EObject current=null]
 				}
 			)
 		)
+		    |
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getPropertyAccess().getPropExtObjExtendedObjectParserRuleCall_2_0());
+				}
+				lv_propExtObj_2_0=ruleExtendedObject
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getPropertyRule());
+					}
+					set(
+						$current,
+						"propExtObj",
+						lv_propExtObj_2_0,
+						"org.xtext.example.mydsl.JSchema.ExtendedObject");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
 	)
 ;
 

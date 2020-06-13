@@ -457,13 +457,22 @@ public interface JSchemaPackage extends EPackage
   int PROPERTY__PROP_OBJ = 1;
 
   /**
+   * The feature id for the '<em><b>Prop Ext Obj</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROPERTY__PROP_EXT_OBJ = 2;
+
+  /**
    * The number of structural features of the '<em>Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROPERTY_FEATURE_COUNT = 2;
+  int PROPERTY_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.xtext.example.mydsl.jSchema.impl.PrimitivePropertiesImpl <em>Primitive Properties</em>}' class.
@@ -949,6 +958,17 @@ public interface JSchemaPackage extends EPackage
   EReference getProperty_PropObj();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.jSchema.Property#getPropExtObj <em>Prop Ext Obj</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Prop Ext Obj</em>'.
+   * @see org.xtext.example.mydsl.jSchema.Property#getPropExtObj()
+   * @see #getProperty()
+   * @generated
+   */
+  EReference getProperty_PropExtObj();
+
+  /**
    * Returns the meta object for class '{@link org.xtext.example.mydsl.jSchema.PrimitiveProperties <em>Primitive Properties</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1373,6 +1393,14 @@ public interface JSchemaPackage extends EPackage
      * @generated
      */
     EReference PROPERTY__PROP_OBJ = eINSTANCE.getProperty_PropObj();
+
+    /**
+     * The meta object literal for the '<em><b>Prop Ext Obj</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROPERTY__PROP_EXT_OBJ = eINSTANCE.getProperty_PropExtObj();
 
     /**
      * The meta object literal for the '{@link org.xtext.example.mydsl.jSchema.impl.PrimitivePropertiesImpl <em>Primitive Properties</em>}' class.

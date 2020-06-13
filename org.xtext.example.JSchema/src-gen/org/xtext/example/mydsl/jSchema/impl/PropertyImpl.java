@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.xtext.example.mydsl.jSchema.ExtendedObject;
 import org.xtext.example.mydsl.jSchema.JSchemaPackage;
 import org.xtext.example.mydsl.jSchema.MainObject;
 import org.xtext.example.mydsl.jSchema.PrimitiveObject;
@@ -27,6 +28,7 @@ import org.xtext.example.mydsl.jSchema.Property;
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.jSchema.impl.PropertyImpl#getPropPrim <em>Prop Prim</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.jSchema.impl.PropertyImpl#getPropObj <em>Prop Obj</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.jSchema.impl.PropertyImpl#getPropExtObj <em>Prop Ext Obj</em>}</li>
  * </ul>
  *
  * @generated
@@ -52,6 +54,16 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * @ordered
    */
   protected MainObject propObj;
+
+  /**
+   * The cached value of the '{@link #getPropExtObj() <em>Prop Ext Obj</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPropExtObj()
+   * @generated
+   * @ordered
+   */
+  protected ExtendedObject propExtObj;
 
   /**
    * <!-- begin-user-doc -->
@@ -180,6 +192,56 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
    * @generated
    */
   @Override
+  public ExtendedObject getPropExtObj()
+  {
+    return propExtObj;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetPropExtObj(ExtendedObject newPropExtObj, NotificationChain msgs)
+  {
+    ExtendedObject oldPropExtObj = propExtObj;
+    propExtObj = newPropExtObj;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JSchemaPackage.PROPERTY__PROP_EXT_OBJ, oldPropExtObj, newPropExtObj);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setPropExtObj(ExtendedObject newPropExtObj)
+  {
+    if (newPropExtObj != propExtObj)
+    {
+      NotificationChain msgs = null;
+      if (propExtObj != null)
+        msgs = ((InternalEObject)propExtObj).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JSchemaPackage.PROPERTY__PROP_EXT_OBJ, null, msgs);
+      if (newPropExtObj != null)
+        msgs = ((InternalEObject)newPropExtObj).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JSchemaPackage.PROPERTY__PROP_EXT_OBJ, null, msgs);
+      msgs = basicSetPropExtObj(newPropExtObj, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, JSchemaPackage.PROPERTY__PROP_EXT_OBJ, newPropExtObj, newPropExtObj));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
@@ -188,6 +250,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return basicSetPropPrim(null, msgs);
       case JSchemaPackage.PROPERTY__PROP_OBJ:
         return basicSetPropObj(null, msgs);
+      case JSchemaPackage.PROPERTY__PROP_EXT_OBJ:
+        return basicSetPropExtObj(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -206,6 +270,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return getPropPrim();
       case JSchemaPackage.PROPERTY__PROP_OBJ:
         return getPropObj();
+      case JSchemaPackage.PROPERTY__PROP_EXT_OBJ:
+        return getPropExtObj();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -225,6 +291,9 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return;
       case JSchemaPackage.PROPERTY__PROP_OBJ:
         setPropObj((MainObject)newValue);
+        return;
+      case JSchemaPackage.PROPERTY__PROP_EXT_OBJ:
+        setPropExtObj((ExtendedObject)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -246,6 +315,9 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
       case JSchemaPackage.PROPERTY__PROP_OBJ:
         setPropObj((MainObject)null);
         return;
+      case JSchemaPackage.PROPERTY__PROP_EXT_OBJ:
+        setPropExtObj((ExtendedObject)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -264,6 +336,8 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
         return propPrim != null;
       case JSchemaPackage.PROPERTY__PROP_OBJ:
         return propObj != null;
+      case JSchemaPackage.PROPERTY__PROP_EXT_OBJ:
+        return propExtObj != null;
     }
     return super.eIsSet(featureID);
   }
