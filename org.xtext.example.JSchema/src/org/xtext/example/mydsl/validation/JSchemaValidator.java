@@ -9,6 +9,7 @@ import java.util.Iterator;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.XtextPackage.Literals;
 import org.eclipse.xtext.validation.Check;
+import org.xtext.example.mydsl.generator.PrimitiveType;
 import org.xtext.example.mydsl.jSchema.AbstractObject;
 import org.xtext.example.mydsl.jSchema.ExtendedObject;
 import org.xtext.example.mydsl.jSchema.ExtendedProperties;
@@ -26,16 +27,6 @@ import org.xtext.example.mydsl.jSchema.hasProperties;
  */
 public class JSchemaValidator extends AbstractJSchemaValidator {
 	
-//	public static final String INVALID_NAME = "invalidName";
-//
-//	@Check
-//	public void checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.getName().charAt(0))) {
-//			warning("Name should start with a capital",
-//					JSchemaPackage.Literals.GREETING__NAME,
-//					INVALID_NAME);
-//		}
-//	}
 	
 	@Check
 	public void checkIfNestedPropertyIsInheritedAlready(Model model) {
@@ -64,13 +55,42 @@ public class JSchemaValidator extends AbstractJSchemaValidator {
 								}
 							}
 						} else if(prop.getExtendedProperties().getProperties().getPropPrim() != null && prop.getOverride() == null) {
-							
+							PrimitiveTypes propType = prop.getExtendedProperties().getProperties().getPropPrim().getType();
+							if(propType.getArray() != null) {
+								String arrayNameOnExtended = propType.getArray().getArrayName().toString();
+								for(hasProperties mainProp : superProperties) {
+									if(mainProp.getProperties().getPropPrim().getType().getArray() != null) {
+										if(arrayNameOnExtended.equals(mainProp.getProperties().getPropPrim().getType().getArray().getArrayName().toString())) {
+											super.error("Nested Array is already inherited from super object", prop, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
+											}
+									}
+								}
+							} else if(propType.getNumber() != null) {
+								String numberValue = propType.getNumber().toString();
+								for(hasProperties mainProp : superProperties) {
+									if(mainProp.getProperties().getPropPrim().getType().getNumber() != null) {
+										if(numberValue.equals(mainProp.getProperties().getPropPrim().getType().getNumber().toString())) {
+											super.error("Nested Number is already inherited from super object", prop, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
+											}
+									}
+								}
+								
+							} else if(propType.getString() != null) {
+								String StringValue = propType.getString().toString();
+								for(hasProperties mainProp : superProperties) {
+									if(mainProp.getProperties().getPropPrim().getType().getString() != null) {
+										if(StringValue.equals(mainProp.getProperties().getPropPrim().getType().getString().toString())) {
+											super.error("Nested String is already inherited from super object", prop, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
+											}
+										}
+									}
+								}
+							}
 						}
 					}
 				}
-			}			
+			}
 		}
-	}
 	
 	
 	
