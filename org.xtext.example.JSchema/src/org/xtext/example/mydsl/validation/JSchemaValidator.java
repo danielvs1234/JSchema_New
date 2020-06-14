@@ -27,6 +27,63 @@ import org.xtext.example.mydsl.jSchema.hasProperties;
  */
 public class JSchemaValidator extends AbstractJSchemaValidator {
 	
+	@Check
+	public void checkIfOverridenPropertyDoesNotExistsInSuper(Model model) {
+		ArrayList<ExtendedObject> extList = getExtendedObjects(model);
+		ArrayList<MainObject> mainList = getMainObjects(model);
+		
+		for(ExtendedObject extObj : extList) {
+			ArrayList<ExtendedProperties> extProps = getExtendedProperties(extObj);
+			for(ExtendedProperties extendedProperty : extProps) {
+				if(extendedProperty.getOverride() != null) {
+					String superObject = extObj.getExtendsID().toString();
+					for(MainObject mainobj : mainList) {
+						if(mainobj.getObjectName().toString().equals(superObject)) {
+							ArrayList<String> mainObjectPropertiesNames = new ArrayList<String>();
+							for(hasProperties mainprop : getMainObjectProperties(mainobj)) {
+								mainObjectPropertiesNames.add(getPrimitiveObjectName(mainprop, null));
+							}
+							if(extendedProperty.getExtendedProperties().getProperties().getPropObj() != null) {
+								String exMainObjPropName = extendedProperty.getExtendedProperties().getProperties().getPropObj().getObjectName().toString();
+								ArrayList<String> nestedMainObjectNames = new ArrayList<String>();
+								for(hasProperties mainObjectProperties : getMainObjectProperties(mainobj)) {
+									if(mainObjectProperties.getProperties().getPropObj() != null) {
+										nestedMainObjectNames.add(mainObjectProperties.getProperties().getPropObj().getObjectName().toString());
+									}
+								}
+								if(!nestedMainObjectNames.contains(exMainObjPropName)) {
+									super.error("Overridden MainObject does not exist in SuperObject", extendedProperty, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
+									
+								}
+							}
+							PrimitiveTypes exType = extendedProperty.getExtendedProperties().getProperties().getPropPrim().getType();
+							if(exType.getArray() != null) {
+								
+									if(!mainObjectPropertiesNames.contains(exType.getArray().getArrayName().toString())) {
+										super.error("Overridden Array does not exist in SuperObject", extendedProperty, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
+									}
+								
+							} else if(exType.getString() != null) {
+								if(!mainObjectPropertiesNames.contains(exType.getString().toString())) {
+										super.error("Overridden String does not exist in SuperObject", extendedProperty, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
+										
+							}
+								
+							} else if(exType.getNumber() != null) {
+								if(!mainObjectPropertiesNames.contains(exType.getNumber().toString())){
+										super.error("Overridden Number does not exist in SuperObject", extendedProperty, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
+										
+								}
+								
+							}
+						}
+					}
+				}
+			}
+			
+		}
+	}
+	
 	
 	@Check
 	public void checkIfNestedPropertyIsInheritedAlready(Model model) {
@@ -50,7 +107,7 @@ public class JSchemaValidator extends AbstractJSchemaValidator {
 								if(mainProp.getProperties().getPropObj() != null) {
 									String mainPropertyName = mainProp.getProperties().getPropObj().getObjectName().toString();
 									if(propertyName.equals(mainPropertyName)) {
-										super.error("Nested MainObject already exists i SuperObject", prop, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
+										super.error("Nested MainObject already inherited from SuperObject", prop, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
 									}
 								}
 							}
