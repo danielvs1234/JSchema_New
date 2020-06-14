@@ -134,13 +134,40 @@ public interface JSchemaPackage extends EPackage
   int ABSTRACT_OBJECT = 2;
 
   /**
+   * The feature id for the '<em><b>Main Object</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ABSTRACT_OBJECT__MAIN_OBJECT = 0;
+
+  /**
+   * The feature id for the '<em><b>Primitive Object</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ABSTRACT_OBJECT__PRIMITIVE_OBJECT = 1;
+
+  /**
+   * The feature id for the '<em><b>Extended Object</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ABSTRACT_OBJECT__EXTENDED_OBJECT = 2;
+
+  /**
    * The number of structural features of the '<em>Abstract Object</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ABSTRACT_OBJECT_FEATURE_COUNT = 0;
+  int ABSTRACT_OBJECT_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.xtext.example.mydsl.jSchema.impl.MainObjectImpl <em>Main Object</em>}' class.
@@ -159,7 +186,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MAIN_OBJECT__OBJECT_NAME = ABSTRACT_OBJECT_FEATURE_COUNT + 0;
+  int MAIN_OBJECT__OBJECT_NAME = 0;
 
   /**
    * The feature id for the '<em><b>Root</b></em>' containment reference.
@@ -168,7 +195,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MAIN_OBJECT__ROOT = ABSTRACT_OBJECT_FEATURE_COUNT + 1;
+  int MAIN_OBJECT__ROOT = 1;
 
   /**
    * The feature id for the '<em><b>Include Objects</b></em>' containment reference.
@@ -177,7 +204,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MAIN_OBJECT__INCLUDE_OBJECTS = ABSTRACT_OBJECT_FEATURE_COUNT + 2;
+  int MAIN_OBJECT__INCLUDE_OBJECTS = 2;
 
   /**
    * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -186,7 +213,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MAIN_OBJECT__PROPERTIES = ABSTRACT_OBJECT_FEATURE_COUNT + 3;
+  int MAIN_OBJECT__PROPERTIES = 3;
 
   /**
    * The number of structural features of the '<em>Main Object</em>' class.
@@ -195,7 +222,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MAIN_OBJECT_FEATURE_COUNT = ABSTRACT_OBJECT_FEATURE_COUNT + 4;
+  int MAIN_OBJECT_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.xtext.example.mydsl.jSchema.impl.PrimitiveObjectImpl <em>Primitive Object</em>}' class.
@@ -214,7 +241,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PRIMITIVE_OBJECT__TYPE = ABSTRACT_OBJECT_FEATURE_COUNT + 0;
+  int PRIMITIVE_OBJECT__TYPE = 0;
 
   /**
    * The feature id for the '<em><b>Primitive Properties</b></em>' containment reference list.
@@ -223,7 +250,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PRIMITIVE_OBJECT__PRIMITIVE_PROPERTIES = ABSTRACT_OBJECT_FEATURE_COUNT + 1;
+  int PRIMITIVE_OBJECT__PRIMITIVE_PROPERTIES = 1;
 
   /**
    * The number of structural features of the '<em>Primitive Object</em>' class.
@@ -232,7 +259,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PRIMITIVE_OBJECT_FEATURE_COUNT = ABSTRACT_OBJECT_FEATURE_COUNT + 2;
+  int PRIMITIVE_OBJECT_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.xtext.example.mydsl.jSchema.impl.ExtendedObjectImpl <em>Extended Object</em>}' class.
@@ -251,7 +278,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXTENDED_OBJECT__EX_OBJECT_NAME = ABSTRACT_OBJECT_FEATURE_COUNT + 0;
+  int EXTENDED_OBJECT__EX_OBJECT_NAME = 0;
 
   /**
    * The feature id for the '<em><b>Extends ID</b></em>' attribute.
@@ -260,7 +287,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXTENDED_OBJECT__EXTENDS_ID = ABSTRACT_OBJECT_FEATURE_COUNT + 1;
+  int EXTENDED_OBJECT__EXTENDS_ID = 1;
 
   /**
    * The feature id for the '<em><b>Include Objects</b></em>' containment reference.
@@ -269,7 +296,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXTENDED_OBJECT__INCLUDE_OBJECTS = ABSTRACT_OBJECT_FEATURE_COUNT + 2;
+  int EXTENDED_OBJECT__INCLUDE_OBJECTS = 2;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference list.
@@ -278,7 +305,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXTENDED_OBJECT__BODY = ABSTRACT_OBJECT_FEATURE_COUNT + 3;
+  int EXTENDED_OBJECT__BODY = 3;
 
   /**
    * The number of structural features of the '<em>Extended Object</em>' class.
@@ -287,7 +314,7 @@ public interface JSchemaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXTENDED_OBJECT_FEATURE_COUNT = ABSTRACT_OBJECT_FEATURE_COUNT + 4;
+  int EXTENDED_OBJECT_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link org.xtext.example.mydsl.jSchema.impl.ExtendedPropertiesImpl <em>Extended Properties</em>}' class.
@@ -667,6 +694,39 @@ public interface JSchemaPackage extends EPackage
    * @generated
    */
   EClass getAbstractObject();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.jSchema.AbstractObject#getMainObject <em>Main Object</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Main Object</em>'.
+   * @see org.xtext.example.mydsl.jSchema.AbstractObject#getMainObject()
+   * @see #getAbstractObject()
+   * @generated
+   */
+  EReference getAbstractObject_MainObject();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.jSchema.AbstractObject#getPrimitiveObject <em>Primitive Object</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Primitive Object</em>'.
+   * @see org.xtext.example.mydsl.jSchema.AbstractObject#getPrimitiveObject()
+   * @see #getAbstractObject()
+   * @generated
+   */
+  EReference getAbstractObject_PrimitiveObject();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.jSchema.AbstractObject#getExtendedObject <em>Extended Object</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Extended Object</em>'.
+   * @see org.xtext.example.mydsl.jSchema.AbstractObject#getExtendedObject()
+   * @see #getAbstractObject()
+   * @generated
+   */
+  EReference getAbstractObject_ExtendedObject();
 
   /**
    * Returns the meta object for class '{@link org.xtext.example.mydsl.jSchema.MainObject <em>Main Object</em>}'.
@@ -1161,6 +1221,30 @@ public interface JSchemaPackage extends EPackage
      * @generated
      */
     EClass ABSTRACT_OBJECT = eINSTANCE.getAbstractObject();
+
+    /**
+     * The meta object literal for the '<em><b>Main Object</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ABSTRACT_OBJECT__MAIN_OBJECT = eINSTANCE.getAbstractObject_MainObject();
+
+    /**
+     * The meta object literal for the '<em><b>Primitive Object</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ABSTRACT_OBJECT__PRIMITIVE_OBJECT = eINSTANCE.getAbstractObject_PrimitiveObject();
+
+    /**
+     * The meta object literal for the '<em><b>Extended Object</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ABSTRACT_OBJECT__EXTENDED_OBJECT = eINSTANCE.getAbstractObject_ExtendedObject();
 
     /**
      * The meta object literal for the '{@link org.xtext.example.mydsl.jSchema.impl.MainObjectImpl <em>Main Object</em>}' class.

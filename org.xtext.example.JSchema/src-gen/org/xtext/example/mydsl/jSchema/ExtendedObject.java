@@ -5,6 +5,8 @@ package org.xtext.example.mydsl.jSchema;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Extended Object</b></em>'.
@@ -24,7 +26,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ExtendedObject extends AbstractObject
+public interface ExtendedObject extends EObject
 {
   /**
    * Returns the value of the '<em><b>Ex Object Name</b></em>' attribute.

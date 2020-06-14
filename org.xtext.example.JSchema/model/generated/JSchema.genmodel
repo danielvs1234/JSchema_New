@@ -32,7 +32,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute JSchema.ecore#//Number/number"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute JSchema.ecore#//Number/decimal"/>
     </genClasses>
-    <genClasses ecoreClass="JSchema.ecore#//AbstractObject"/>
+    <genClasses ecoreClass="JSchema.ecore#//AbstractObject">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference JSchema.ecore#//AbstractObject/mainObject"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference JSchema.ecore#//AbstractObject/primitiveObject"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference JSchema.ecore#//AbstractObject/extendedObject"/>
+    </genClasses>
     <genClasses ecoreClass="JSchema.ecore#//MainObject">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute JSchema.ecore#//MainObject/objectName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference JSchema.ecore#//MainObject/root"/>

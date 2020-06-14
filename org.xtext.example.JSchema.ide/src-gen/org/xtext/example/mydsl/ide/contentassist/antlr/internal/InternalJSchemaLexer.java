@@ -889,10 +889,10 @@ public class InternalJSchemaLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalJSchema.g:3008:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalJSchema.g:3008:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalJSchema.g:3053:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalJSchema.g:3053:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalJSchema.g:3008:11: ( '^' )?
+            // InternalJSchema.g:3053:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -901,7 +901,7 @@ public class InternalJSchemaLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // InternalJSchema.g:3008:11: '^'
+                    // InternalJSchema.g:3053:11: '^'
                     {
                     match('^'); 
 
@@ -919,7 +919,7 @@ public class InternalJSchemaLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalJSchema.g:3008:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalJSchema.g:3053:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -968,10 +968,10 @@ public class InternalJSchemaLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalJSchema.g:3010:10: ( ( '0' .. '9' )+ )
-            // InternalJSchema.g:3010:12: ( '0' .. '9' )+
+            // InternalJSchema.g:3055:10: ( ( '0' .. '9' )+ )
+            // InternalJSchema.g:3055:12: ( '0' .. '9' )+
             {
-            // InternalJSchema.g:3010:12: ( '0' .. '9' )+
+            // InternalJSchema.g:3055:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -985,7 +985,7 @@ public class InternalJSchemaLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // InternalJSchema.g:3010:13: '0' .. '9'
+            	    // InternalJSchema.g:3055:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1017,10 +1017,10 @@ public class InternalJSchemaLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalJSchema.g:3012:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalJSchema.g:3012:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalJSchema.g:3057:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalJSchema.g:3057:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // InternalJSchema.g:3012:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalJSchema.g:3057:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1038,10 +1038,10 @@ public class InternalJSchemaLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // InternalJSchema.g:3012:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalJSchema.g:3057:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // InternalJSchema.g:3012:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalJSchema.g:3057:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -1057,7 +1057,7 @@ public class InternalJSchemaLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // InternalJSchema.g:3012:21: '\\\\' .
+                    	    // InternalJSchema.g:3057:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1065,7 +1065,7 @@ public class InternalJSchemaLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalJSchema.g:3012:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalJSchema.g:3057:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1090,10 +1090,10 @@ public class InternalJSchemaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalJSchema.g:3012:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalJSchema.g:3057:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // InternalJSchema.g:3012:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalJSchema.g:3057:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -1109,7 +1109,7 @@ public class InternalJSchemaLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // InternalJSchema.g:3012:54: '\\\\' .
+                    	    // InternalJSchema.g:3057:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1117,7 +1117,7 @@ public class InternalJSchemaLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalJSchema.g:3012:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalJSchema.g:3057:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1160,12 +1160,12 @@ public class InternalJSchemaLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalJSchema.g:3014:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalJSchema.g:3014:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalJSchema.g:3059:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalJSchema.g:3059:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // InternalJSchema.g:3014:24: ( options {greedy=false; } : . )*
+            // InternalJSchema.g:3059:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -1190,7 +1190,7 @@ public class InternalJSchemaLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // InternalJSchema.g:3014:52: .
+            	    // InternalJSchema.g:3059:52: .
             	    {
             	    matchAny(); 
 
@@ -1220,12 +1220,12 @@ public class InternalJSchemaLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalJSchema.g:3016:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalJSchema.g:3016:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalJSchema.g:3061:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalJSchema.g:3061:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // InternalJSchema.g:3016:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalJSchema.g:3061:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -1238,7 +1238,7 @@ public class InternalJSchemaLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // InternalJSchema.g:3016:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalJSchema.g:3061:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1258,7 +1258,7 @@ public class InternalJSchemaLexer extends Lexer {
                 }
             } while (true);
 
-            // InternalJSchema.g:3016:40: ( ( '\\r' )? '\\n' )?
+            // InternalJSchema.g:3061:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1267,9 +1267,9 @@ public class InternalJSchemaLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // InternalJSchema.g:3016:41: ( '\\r' )? '\\n'
+                    // InternalJSchema.g:3061:41: ( '\\r' )? '\\n'
                     {
-                    // InternalJSchema.g:3016:41: ( '\\r' )?
+                    // InternalJSchema.g:3061:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -1278,7 +1278,7 @@ public class InternalJSchemaLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // InternalJSchema.g:3016:41: '\\r'
+                            // InternalJSchema.g:3061:41: '\\r'
                             {
                             match('\r'); 
 
@@ -1310,10 +1310,10 @@ public class InternalJSchemaLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalJSchema.g:3018:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalJSchema.g:3018:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalJSchema.g:3063:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalJSchema.g:3063:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // InternalJSchema.g:3018:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalJSchema.g:3063:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -1367,8 +1367,8 @@ public class InternalJSchemaLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalJSchema.g:3020:16: ( . )
-            // InternalJSchema.g:3020:18: .
+            // InternalJSchema.g:3065:16: ( . )
+            // InternalJSchema.g:3065:18: .
             {
             matchAny(); 
 

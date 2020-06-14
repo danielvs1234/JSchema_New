@@ -5,6 +5,8 @@ package org.xtext.example.mydsl.jSchema;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Primitive Object</b></em>'.
@@ -22,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface PrimitiveObject extends AbstractObject
+public interface PrimitiveObject extends EObject
 {
   /**
    * Returns the value of the '<em><b>Type</b></em>' containment reference.

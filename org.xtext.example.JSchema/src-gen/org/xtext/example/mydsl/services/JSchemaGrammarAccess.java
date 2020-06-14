@@ -78,25 +78,37 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 	public class AbstractObjectElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.JSchema.AbstractObject");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cMainObjectParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cPrimitiveObjectParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cExtendedObjectParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final Assignment cMainObjectAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
+		private final RuleCall cMainObjectMainObjectParserRuleCall_0_0 = (RuleCall)cMainObjectAssignment_0.eContents().get(0);
+		private final Assignment cPrimitiveObjectAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cPrimitiveObjectPrimitiveObjectParserRuleCall_1_0 = (RuleCall)cPrimitiveObjectAssignment_1.eContents().get(0);
+		private final Assignment cExtendedObjectAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
+		private final RuleCall cExtendedObjectExtendedObjectParserRuleCall_2_0 = (RuleCall)cExtendedObjectAssignment_2.eContents().get(0);
 		
 		//AbstractObject:
-		//	MainObject | PrimitiveObject | ExtendedObject;
+		//	mainObject=MainObject | primitiveObject=PrimitiveObject | extendedObject=ExtendedObject;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//MainObject | PrimitiveObject | ExtendedObject
+		//mainObject=MainObject | primitiveObject=PrimitiveObject | extendedObject=ExtendedObject
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
+		//mainObject=MainObject
+		public Assignment getMainObjectAssignment_0() { return cMainObjectAssignment_0; }
+		
 		//MainObject
-		public RuleCall getMainObjectParserRuleCall_0() { return cMainObjectParserRuleCall_0; }
+		public RuleCall getMainObjectMainObjectParserRuleCall_0_0() { return cMainObjectMainObjectParserRuleCall_0_0; }
+		
+		//primitiveObject=PrimitiveObject
+		public Assignment getPrimitiveObjectAssignment_1() { return cPrimitiveObjectAssignment_1; }
 		
 		//PrimitiveObject
-		public RuleCall getPrimitiveObjectParserRuleCall_1() { return cPrimitiveObjectParserRuleCall_1; }
+		public RuleCall getPrimitiveObjectPrimitiveObjectParserRuleCall_1_0() { return cPrimitiveObjectPrimitiveObjectParserRuleCall_1_0; }
+		
+		//extendedObject=ExtendedObject
+		public Assignment getExtendedObjectAssignment_2() { return cExtendedObjectAssignment_2; }
 		
 		//ExtendedObject
-		public RuleCall getExtendedObjectParserRuleCall_2() { return cExtendedObjectParserRuleCall_2; }
+		public RuleCall getExtendedObjectExtendedObjectParserRuleCall_2_0() { return cExtendedObjectExtendedObjectParserRuleCall_2_0; }
 	}
 	public class MainObjectElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.JSchema.MainObject");
@@ -258,9 +270,6 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cBodyExtendedPropertiesParserRuleCall_5_1_1_0 = (RuleCall)cBodyAssignment_5_1_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		////((('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)
-		////		(',' (('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)*)?
-		////		'}'
 		//ExtendedObject:
 		//	exObjectName=ID 'extends' extendsID=STRING ('includes' includeObjects=Includes)? '{' (body+=ExtendedProperties (','
 		//	body+=ExtendedProperties)*)?
@@ -936,7 +945,7 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//AbstractObject:
-	//	MainObject | PrimitiveObject | ExtendedObject;
+	//	mainObject=MainObject | primitiveObject=PrimitiveObject | extendedObject=ExtendedObject;
 	public AbstractObjectElements getAbstractObjectAccess() {
 		return pAbstractObject;
 	}
@@ -967,9 +976,6 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 		return getPrimitiveObjectAccess().getRule();
 	}
 	
-	////((('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)
-	////		(',' (('override' overRiddenProperties+=hasProperties) | properties+=hasProperties)*)?
-	////		'}'
 	//ExtendedObject:
 	//	exObjectName=ID 'extends' extendsID=STRING ('includes' includeObjects=Includes)? '{' (body+=ExtendedProperties (','
 	//	body+=ExtendedProperties)*)?

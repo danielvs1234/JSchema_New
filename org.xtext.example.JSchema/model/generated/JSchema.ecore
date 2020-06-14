@@ -10,8 +10,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="decimal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractObject"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MainObject" eSuperTypes="#//AbstractObject">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mainObject" eType="#//MainObject"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="primitiveObject" eType="#//PrimitiveObject"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extendedObject" eType="#//ExtendedObject"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MainObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="objectName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="root" eType="#//IsRoot"
         containment="true"/>
@@ -20,13 +27,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
         eType="#//hasProperties" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveObject" eSuperTypes="#//AbstractObject">
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//PrimitiveTypes"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="primitiveProperties" upperBound="-1"
         eType="#//PrimitiveProperties" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExtendedObject" eSuperTypes="#//AbstractObject">
+  <eClassifiers xsi:type="ecore:EClass" name="ExtendedObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="exObjectName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="extendsID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="includeObjects" eType="#//Includes"

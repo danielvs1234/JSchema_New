@@ -1,4 +1,5 @@
 package org.xtext.example.mydsl.generator;
+
 import java.util.ArrayList;
 
 import org.xtext.example.mydsl.jSchema.AbstractObject;
@@ -6,90 +7,90 @@ import org.xtext.example.mydsl.jSchema.MainObject;
 import org.xtext.example.mydsl.jSchema.PrimitiveObject;
 import org.xtext.example.mydsl.jSchema.Property;
 
-public class ObjectClass{
+public class ObjectClass {
 	String name;
 	ArrayList<ObjectClass> includedMainObjects;
 	ArrayList<PrimitiveObjectClass> includedPrimitiveObjects;
 	ArrayList<ObjectClass> hasMainObjectPropertiesList;
 	ArrayList<PrimitiveObjectClass> hasPrimtiveObjectPropertiesList;
-	
-	//Added for inheritance
+
+	// Added for inheritance
 	ArrayList<ExtendedObjectClass> hasExtendedObjectPropertiesList;
 	ArrayList<ExtendedObjectClass> includedExtendedObjectPropertiesList;
-	
+
 	boolean isRoot;
 	MainObject mainObject;
-	
-	public ObjectClass(String name, boolean isRoot, MainObject obj){
+
+	public ObjectClass(String name, boolean isRoot, MainObject obj) {
 		includedMainObjects = new ArrayList<>();
 		includedPrimitiveObjects = new ArrayList<>();
 		hasMainObjectPropertiesList = new ArrayList<>();
 		hasPrimtiveObjectPropertiesList = new ArrayList<>();
-		//Addded for inheritance'
+		// Addded for inheritance'
 		includedExtendedObjectPropertiesList = new ArrayList<>();
 		hasExtendedObjectPropertiesList = new ArrayList<>();
-		
+
 		mainObject = obj;
 		this.name = name;
 		this.isRoot = isRoot;
 	}
 
-
 	public void addMainObject(ObjectClass obj) {
 		includedMainObjects.add(obj);
 	}
-	
+
 	public void addPrimitiveObject(PrimitiveObjectClass primObj) {
 		includedPrimitiveObjects.add(primObj);
 	}
-	
+
 	public void addHasPrimObj(PrimitiveObjectClass primObj) {
 		hasPrimtiveObjectPropertiesList.add(primObj);
 	}
-	
+
 	public void addHasMainObj(ObjectClass mainObj) {
 		hasMainObjectPropertiesList.add(mainObj);
 	}
-	
-	//Added for inheritance
+
+	// Added for inheritance
 	public void addHasExtendedObj(ExtendedObjectClass extObj) {
 		hasExtendedObjectPropertiesList.add(extObj);
 	}
-	
+
 	public void addExtendedObject(ExtendedObjectClass extObj) {
 		includedExtendedObjectPropertiesList.add(extObj);
 	}
-	
+
 	public ArrayList<ObjectClass> getMainObjects() {
 		return this.includedMainObjects;
 	}
-	
-	public ArrayList<PrimitiveObjectClass> getPrimitiveObjects(){
+
+	public ArrayList<PrimitiveObjectClass> getPrimitiveObjects() {
 		return this.includedPrimitiveObjects;
 	}
-	
-	public ArrayList<PrimitiveObjectClass> getAllPrimitiveObjects(){
+
+	public ArrayList<PrimitiveObjectClass> getAllPrimitiveObjects() {
 		ArrayList<PrimitiveObjectClass> temp = new ArrayList<>();
 		temp.addAll(includedPrimitiveObjects);
 		temp.addAll(hasPrimtiveObjectPropertiesList);
 		return temp;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getName() {
 		return this.name;
 	}
-	
-	public boolean equals(MainObject anotherObject) {  
-	       if (this == anotherObject) {  
-	           return true;  
-	       } else {
-	    	   return false;
-	       }
+
+	public boolean equals(MainObject anotherObject) {
+		if (this == anotherObject) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-	
+
 	public String getObjectJSchemaString() {
 		StringBuilder string = new StringBuilder();
 		if (isRoot == true) {
@@ -102,12 +103,21 @@ public class ObjectClass{
 		
 		if(hasMainObjectPropertiesList.size() == 0 &&
 				hasPrimtiveObjectPropertiesList.size() == 0 &&
+				hasExtendedObjectPropertiesList.size() == 0 &&
 				includedPrimitiveObjects.size() == 0 &&
-				includedMainObjects.size() == 0
+				includedMainObjects.size() == 0 &&
+				includedExtendedObjectPropertiesList.size() == 0
 				) {
-			string.append( "\"type\":\"object\"");
-		} else {
-			string.append( "\"type\":\"object\",\n");
+					string.append( "\"type\":\"object\"");
+		} else if(hasMainObjectPropertiesList.size() == 0 &&
+					hasPrimtiveObjectPropertiesList.size() == 0 &&
+					hasExtendedObjectPropertiesList.size() == 0 &&
+					(includedPrimitiveObjects.size() > 0 ||
+					includedMainObjects.size() > 0 ||
+					includedExtendedObjectPropertiesList.size() > 0)) {
+						string.append("\"type\":\"object\"");
+			} else {
+				string.append( "\"type\":\"object\",\n");
 		}
 		
 		
@@ -175,7 +185,7 @@ public class ObjectClass{
 				&& hasExtendedObjectPropertiesList.size() == 0 
 				&& (includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0 || includedExtendedObjectPropertiesList.size() > 0)) {
 			
-			string.append("\"properties\":{\n");
+		//	string.append("\"properties\":{\n");
 		}
 		
 		if(includedPrimitiveObjects.size() > 0 || includedMainObjects.size() > 0 || includedExtendedObjectPropertiesList.size() > 0) {
@@ -244,7 +254,7 @@ public class ObjectClass{
 		if(hasPrimtiveObjectPropertiesList.size() == 0 && hasMainObjectPropertiesList.size() == 0 && hasExtendedObjectPropertiesList.size() == 0 && (includedPrimitiveObjects.size() > 0 
 				|| includedMainObjects.size() > 0 
 				|| includedExtendedObjectPropertiesList.size() > 0)) {
-			string.append("\n}");
+		//	string.append("\n}");
 		}
 		}
 		

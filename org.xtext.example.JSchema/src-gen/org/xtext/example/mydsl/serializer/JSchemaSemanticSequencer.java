@@ -14,6 +14,7 @@ import org.eclipse.xtext.serializer.ISerializationContext;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
+import org.xtext.example.mydsl.jSchema.AbstractObject;
 import org.xtext.example.mydsl.jSchema.Array;
 import org.xtext.example.mydsl.jSchema.ExtendedObject;
 import org.xtext.example.mydsl.jSchema.ExtendedProperties;
@@ -43,6 +44,9 @@ public class JSchemaSemanticSequencer extends AbstractDelegatingSemanticSequence
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == JSchemaPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case JSchemaPackage.ABSTRACT_OBJECT:
+				sequence_AbstractObject(context, (AbstractObject) semanticObject); 
+				return; 
 			case JSchemaPackage.ARRAY:
 				sequence_Array(context, (Array) semanticObject); 
 				return; 
@@ -89,6 +93,18 @@ public class JSchemaSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Contexts:
+	 *     AbstractObject returns AbstractObject
+	 *
+	 * Constraint:
+	 *     (mainObject=MainObject | primitiveObject=PrimitiveObject | extendedObject=ExtendedObject)
+	 */
+	protected void sequence_AbstractObject(ISerializationContext context, AbstractObject semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Array returns Array
 	 *
 	 * Constraint:
@@ -101,7 +117,6 @@ public class JSchemaSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Contexts:
-	 *     AbstractObject returns ExtendedObject
 	 *     ExtendedObject returns ExtendedObject
 	 *
 	 * Constraint:
@@ -156,7 +171,6 @@ public class JSchemaSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Contexts:
-	 *     AbstractObject returns MainObject
 	 *     MainObject returns MainObject
 	 *
 	 * Constraint:
@@ -193,7 +207,6 @@ public class JSchemaSemanticSequencer extends AbstractDelegatingSemanticSequence
 	
 	/**
 	 * Contexts:
-	 *     AbstractObject returns PrimitiveObject
 	 *     PrimitiveObject returns PrimitiveObject
 	 *
 	 * Constraint:

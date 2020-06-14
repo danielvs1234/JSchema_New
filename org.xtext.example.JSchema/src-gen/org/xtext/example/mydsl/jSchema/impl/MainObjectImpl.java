@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -40,7 +41,7 @@ import org.xtext.example.mydsl.jSchema.hasProperties;
  *
  * @generated
  */
-public class MainObjectImpl extends AbstractObjectImpl implements MainObject
+public class MainObjectImpl extends MinimalEObjectImpl.Container implements MainObject
 {
   /**
    * The default value of the '{@link #getObjectName() <em>Object Name</em>}' attribute.

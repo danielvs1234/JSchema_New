@@ -51,8 +51,8 @@ class JSchemaGenerator extends AbstractGenerator {
 		val abstractObjects = resource.allContents.filter(Model).next
 		jsonFormatter = new JsonFormatter();
 		fileController = new FileController(filePath)
+		
 
-		System.out.println("Amount of primitive objects found: " + primitiveObjectList.size())
 
 		for (primObj : resource.allContents.toIterable.filter(PrimitiveObject)) {
 			// compile all primitive objects
@@ -73,9 +73,6 @@ class JSchemaGenerator extends AbstractGenerator {
 				rootBool = "true"
 				rootObjectForCompilationLast = obj
 			}else{
-				System.out.println(
-				"Contains other objects: " + bool + "  " + obj.objectName.toString() + " PropertyListSize= " +
-					getProperties(obj).size() + " isRoot: " + rootBool)
 			// Compile all main objects
 			compiledMainObjects.add(compileMainObject(obj));
 				
@@ -101,8 +98,11 @@ class JSchemaGenerator extends AbstractGenerator {
 				stringBuilder.append("{\n")
 				stringBuilder.append(compiledObject.objectJSchemaString);
 				stringBuilder.append("\n}")
-				val formattedString = jsonFormatter.formatString(stringBuilder.toString())
+				
 				//System.out.println(stringBuilder.toString)
+				
+				val formattedString = jsonFormatter.formatString(stringBuilder.toString())
+				
 				
 				System.out.println(formattedString)
 				fileController.writeFile(formattedString)
@@ -154,6 +154,7 @@ class JSchemaGenerator extends AbstractGenerator {
 								if (alreadyAddedObject.name == includedName) {
 									namesForDeletion.add(includedName)
 								} else {
+									System.out.println("SuperObject already contains the Included MainObject")
 									// Show error stating that Included MainObject is already inherited
 								}
 							}
@@ -168,6 +169,7 @@ class JSchemaGenerator extends AbstractGenerator {
 									namesForDeletion.add(includedName)
 								} else {
 									// Show Error stating that Included PrimObject is already inherited
+									System.out.println("Super object already contains the Included PrimitiveObject")
 								}
 							}
 						}
@@ -369,7 +371,7 @@ class JSchemaGenerator extends AbstractGenerator {
 					for(PrimitiveObjectClass object : containedPrimObjectInSuper){
 							if(object.name == allegedlyNewPrimObjectName){
 								doesPrimObjectExists = true
-								//Show error stating that new nested Main Object is already inherited from super object, and add the object from super
+								//Show error stating that new nested Primit Object is already inherited from super object, and add the object from super
 								System.out.println("Nested Primitive object is already inherited from Super object (nested object name: "+ object.name)
 							}
 					}
@@ -382,7 +384,7 @@ class JSchemaGenerator extends AbstractGenerator {
 			
 			}
 			
-			//Add all remaining nested objects from the Super Object to the Extended Object.
+			//Add all remaining nested Primitive objects from the Super Object to the Extended Object.
 			var ArrayList<PrimitiveObjectClass> superObjectPrimitiveObjects = superObject.getAllPrimitiveObjects
 			var ArrayList<PrimitiveObjectClass> alreadyAddedObjects = tempObject.getAllPrimitiveObjects
 			
@@ -390,6 +392,7 @@ class JSchemaGenerator extends AbstractGenerator {
 				while(primIterator.hasNext()){
 					val PrimitiveObjectClass supPrimObj = primIterator.next()
 					for(PrimitiveObjectClass exPrimObj : alreadyAddedObjects){
+						System.out.println("tempObj (" + tempObject.name + ") " + "contain : " + exPrimObj.name)
 						if(supPrimObj.valNumber === null){
 							if(supPrimObj.name == exPrimObj.name){
 								primIterator.remove()
@@ -424,23 +427,6 @@ class JSchemaGenerator extends AbstractGenerator {
 			for(ObjectClass mainObjectForAddition : superMainObjectsNested){
 				tempObject.addHasMainObj(mainObjectForAddition)
 			}
-			
-			
-			//Test printer
-			System.out.println("Extended Object now has " + (tempObject.hasMainObjectPropertiesList.size + tempObject.includedMainObjects.size) + " main objects")
-			for(ObjectClass mainObject : tempObject.hasMainObjectPropertiesList){
-				System.out.println("Nested: " + mainObject.getName)
-			}
-			for(ObjectClass mainObject : tempObject.includedMainObjects){
-				System.out.println("Included: " + mainObject.getName)
-			}
-			System.out.println("Extended Object now has " + (tempObject.hasPrimtiveObjectPropertiesList.size + tempObject.includedPrimitiveObjects.size) + " Primitive objects")	
-			for(PrimitiveObjectClass primObj : tempObject.hasPrimtiveObjectPropertiesList){
-				System.out.println("Nested: " + primObj.name)
-			}
-			for(PrimitiveObjectClass primObj : tempObject.includedPrimitiveObjects){
-				System.out.println("Included: " + primObj.name)
-			} 
 			
 			
 		
@@ -491,13 +477,10 @@ class JSchemaGenerator extends AbstractGenerator {
 
 			for (hasProperties e : getProperties(obj)) {
 				if (e.properties.propPrim !== null) {
-					System.out.println("hasProperties = nested Primitive Object");
 					tempObject.addHasPrimObj(compilePrimitiveObject(e.properties.propPrim));
 				} else if (e.properties.propObj !== null) {
-					System.out.println("hasProperties = nested Main Object");
 					tempObject.addHasMainObj(compileMainObject(e.properties.propObj));
 				} else if (e.properties.propExtObj !== null) {
-					System.out.println("hasProperties = nested Extended Object");
 					tempObject.addHasExtendedObj(compileExtendedObject(e.properties.propExtObj));
 				}
 			}
@@ -515,7 +498,6 @@ class JSchemaGenerator extends AbstractGenerator {
 			var ArrayList<PrimitiveProperties> primitiveProperties = new ArrayList<PrimitiveProperties>();
 			for (PrimitiveProperties primProp : obj.primitiveProperties) {
 				primitiveProperties.add(primProp)
-				System.out.println(primProp.toString)
 			}
 
 			temp = new PrimitiveObjectClass(obj.type.string, obj, PrimitiveType.STRING, obj.type.string,

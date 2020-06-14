@@ -10,6 +10,14 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Abstract Object</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link org.xtext.example.mydsl.jSchema.AbstractObject#getMainObject <em>Main Object</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.jSchema.AbstractObject#getPrimitiveObject <em>Primitive Object</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.jSchema.AbstractObject#getExtendedObject <em>Extended Object</em>}</li>
+ * </ul>
  *
  * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#getAbstractObject()
  * @model
@@ -17,4 +25,70 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface AbstractObject extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Main Object</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Main Object</em>' containment reference.
+   * @see #setMainObject(MainObject)
+   * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#getAbstractObject_MainObject()
+   * @model containment="true"
+   * @generated
+   */
+  MainObject getMainObject();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.jSchema.AbstractObject#getMainObject <em>Main Object</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Main Object</em>' containment reference.
+   * @see #getMainObject()
+   * @generated
+   */
+  void setMainObject(MainObject value);
+
+  /**
+   * Returns the value of the '<em><b>Primitive Object</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Primitive Object</em>' containment reference.
+   * @see #setPrimitiveObject(PrimitiveObject)
+   * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#getAbstractObject_PrimitiveObject()
+   * @model containment="true"
+   * @generated
+   */
+  PrimitiveObject getPrimitiveObject();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.jSchema.AbstractObject#getPrimitiveObject <em>Primitive Object</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Primitive Object</em>' containment reference.
+   * @see #getPrimitiveObject()
+   * @generated
+   */
+  void setPrimitiveObject(PrimitiveObject value);
+
+  /**
+   * Returns the value of the '<em><b>Extended Object</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Extended Object</em>' containment reference.
+   * @see #setExtendedObject(ExtendedObject)
+   * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#getAbstractObject_ExtendedObject()
+   * @model containment="true"
+   * @generated
+   */
+  ExtendedObject getExtendedObject();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.jSchema.AbstractObject#getExtendedObject <em>Extended Object</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Extended Object</em>' containment reference.
+   * @see #getExtendedObject()
+   * @generated
+   */
+  void setExtendedObject(ExtendedObject value);
+
 } // AbstractObject

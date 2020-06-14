@@ -276,6 +276,39 @@ public class JSchemaPackageImpl extends EPackageImpl implements JSchemaPackage
    * @generated
    */
   @Override
+  public EReference getAbstractObject_MainObject()
+  {
+    return (EReference)abstractObjectEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getAbstractObject_PrimitiveObject()
+  {
+    return (EReference)abstractObjectEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getAbstractObject_ExtendedObject()
+  {
+    return (EReference)abstractObjectEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getMainObject()
   {
     return mainObjectEClass;
@@ -738,6 +771,9 @@ public class JSchemaPackageImpl extends EPackageImpl implements JSchemaPackage
     createEAttribute(numberEClass, NUMBER__DECIMAL);
 
     abstractObjectEClass = createEClass(ABSTRACT_OBJECT);
+    createEReference(abstractObjectEClass, ABSTRACT_OBJECT__MAIN_OBJECT);
+    createEReference(abstractObjectEClass, ABSTRACT_OBJECT__PRIMITIVE_OBJECT);
+    createEReference(abstractObjectEClass, ABSTRACT_OBJECT__EXTENDED_OBJECT);
 
     mainObjectEClass = createEClass(MAIN_OBJECT);
     createEAttribute(mainObjectEClass, MAIN_OBJECT__OBJECT_NAME);
@@ -821,9 +857,6 @@ public class JSchemaPackageImpl extends EPackageImpl implements JSchemaPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    mainObjectEClass.getESuperTypes().add(this.getAbstractObject());
-    primitiveObjectEClass.getESuperTypes().add(this.getAbstractObject());
-    extendedObjectEClass.getESuperTypes().add(this.getAbstractObject());
 
     // Initialize classes and features; add operations and parameters
     initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -834,6 +867,9 @@ public class JSchemaPackageImpl extends EPackageImpl implements JSchemaPackage
     initEAttribute(getNumber_Decimal(), ecorePackage.getEInt(), "decimal", null, 0, 1, org.xtext.example.mydsl.jSchema.Number.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(abstractObjectEClass, AbstractObject.class, "AbstractObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAbstractObject_MainObject(), this.getMainObject(), null, "mainObject", null, 0, 1, AbstractObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAbstractObject_PrimitiveObject(), this.getPrimitiveObject(), null, "primitiveObject", null, 0, 1, AbstractObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAbstractObject_ExtendedObject(), this.getExtendedObject(), null, "extendedObject", null, 0, 1, AbstractObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mainObjectEClass, MainObject.class, "MainObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMainObject_ObjectName(), ecorePackage.getEString(), "objectName", null, 0, 1, MainObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

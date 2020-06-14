@@ -174,32 +174,65 @@ ruleAbstractObject returns [EObject current=null]
 	leaveRule();
 }:
 	(
-		{
-			newCompositeNode(grammarAccess.getAbstractObjectAccess().getMainObjectParserRuleCall_0());
-		}
-		this_MainObject_0=ruleMainObject
-		{
-			$current = $this_MainObject_0.current;
-			afterParserOrEnumRuleCall();
-		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getAbstractObjectAccess().getMainObjectMainObjectParserRuleCall_0_0());
+				}
+				lv_mainObject_0_0=ruleMainObject
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getAbstractObjectRule());
+					}
+					set(
+						$current,
+						"mainObject",
+						lv_mainObject_0_0,
+						"org.xtext.example.mydsl.JSchema.MainObject");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
 		    |
-		{
-			newCompositeNode(grammarAccess.getAbstractObjectAccess().getPrimitiveObjectParserRuleCall_1());
-		}
-		this_PrimitiveObject_1=rulePrimitiveObject
-		{
-			$current = $this_PrimitiveObject_1.current;
-			afterParserOrEnumRuleCall();
-		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getAbstractObjectAccess().getPrimitiveObjectPrimitiveObjectParserRuleCall_1_0());
+				}
+				lv_primitiveObject_1_0=rulePrimitiveObject
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getAbstractObjectRule());
+					}
+					set(
+						$current,
+						"primitiveObject",
+						lv_primitiveObject_1_0,
+						"org.xtext.example.mydsl.JSchema.PrimitiveObject");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
 		    |
-		{
-			newCompositeNode(grammarAccess.getAbstractObjectAccess().getExtendedObjectParserRuleCall_2());
-		}
-		this_ExtendedObject_2=ruleExtendedObject
-		{
-			$current = $this_ExtendedObject_2.current;
-			afterParserOrEnumRuleCall();
-		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getAbstractObjectAccess().getExtendedObjectExtendedObjectParserRuleCall_2_0());
+				}
+				lv_extendedObject_2_0=ruleExtendedObject
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getAbstractObjectRule());
+					}
+					set(
+						$current,
+						"extendedObject",
+						lv_extendedObject_2_0,
+						"org.xtext.example.mydsl.JSchema.ExtendedObject");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
 	)
 ;
 
