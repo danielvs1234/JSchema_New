@@ -58,30 +58,42 @@ class JSchemaGenerator extends AbstractGenerator {
 			// compile all primitive objects
 			compiledPrimitiveObjects.add(compilePrimitiveObject(primObj));
 		}
-
+		
+	
+		var MainObject rootObjectForCompilationLast = null
 		for (obj : resource.allContents.toIterable.filter(MainObject)) {
 			var bool = "false"
 			var rootBool = "false"
 			if (checkIfObjectContainsOtherObjects(obj) == true) {
 				bool = "true"
 			}
-			if (obj.root != null) {
+			
+			//Check if MainObject is root, if it is, save it outside loop for compilation later.
+			if (obj.root !== null) {
 				rootBool = "true"
-			}
-			System.out.println(
+				rootObjectForCompilationLast = obj
+			}else{
+				System.out.println(
 				"Contains other objects: " + bool + "  " + obj.objectName.toString() + " PropertyListSize= " +
 					getProperties(obj).size() + " isRoot: " + rootBool)
 			// Compile all main objects
 			compiledMainObjects.add(compileMainObject(obj));
-
+				
+			}
+			
 		}
+		
 			for (exObj : resource.allContents.toIterable.filter(ExtendedObject)) {
 				// compileExtendedObjects
 				val ExtendedObjectClass extendedObj = compileExtendedObject(exObj)
 				if(extendedObj !== null){
 				compiledExtendedObjectList.add(extendedObj)
 				}
+			
 		}
+		
+		//compile root object, to ensure all globally defined objects have been compiled beforehand.
+		compiledMainObjects.add(compileMainObject(rootObjectForCompilationLast))
 
 		for (ObjectClass compiledObject : compiledMainObjects) {
 			if (compiledObject.isRoot == true) {
@@ -194,6 +206,7 @@ class JSchemaGenerator extends AbstractGenerator {
 			val ArrayList<ObjectClass> superMainObjectProperties = superObject.hasMainObjectPropertiesList
 			val ArrayList<PrimitiveObjectClass> superPrimitiveProperties = superObject.hasPrimtiveObjectPropertiesList
 			val ArrayList<ExtendedObjectClass> superExtendedObjectProperties = superObject.hasExtendedObjectPropertiesList
+		
 
 			for (ExtendedProperties property : obj.getBody) {
 
@@ -393,6 +406,24 @@ class JSchemaGenerator extends AbstractGenerator {
 				tempObject.addHasPrimObj(superObjectForAddition)
 			}
 			
+			
+			//Add all remaining nested Main objects from the super object, which has not been overriden or is contained in the ExtendedObject
+			var ArrayList<ObjectClass> superMainObjectsNested = superObject.hasMainObjectPropertiesList
+			var ArrayList <ObjectClass> mainObjectsInTemp = tempObject.hasMainObjectPropertiesList
+			
+			var Iterator<ObjectClass> objIterator = superMainObjectsNested.iterator()
+				while(objIterator.hasNext()){
+					val ObjectClass mainObj = objIterator.next()
+						for(ObjectClass mainObjEx : mainObjectsInTemp){
+							if(mainObj.name == mainObjEx.name){
+								objIterator.remove()
+							}
+						}
+						
+			}
+			for(ObjectClass mainObjectForAddition : superMainObjectsNested){
+				tempObject.addHasMainObj(mainObjectForAddition)
+			}
 			
 			
 			//Test printer
