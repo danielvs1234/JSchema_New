@@ -16,6 +16,8 @@ import org.xtext.example.mydsl.jSchema.JSchemaPackage;
 import org.xtext.example.mydsl.jSchema.MainObject;
 import org.xtext.example.mydsl.jSchema.Model;
 import org.xtext.example.mydsl.jSchema.PrimitiveObject;
+import org.xtext.example.mydsl.jSchema.PrimitiveTypes;
+import org.xtext.example.mydsl.jSchema.hasProperties;
 
 /**
  * This class contains custom validation rules. 
@@ -38,26 +40,35 @@ public class JSchemaValidator extends AbstractJSchemaValidator {
 	@Check
 	public void checkIfNestedPropertyIsInheritedAlready(Model model) {
 		
-		ArrayList<ExtendedObject> extList = new ArrayList<ExtendedObject>();
-		ArrayList<MainObject> mainList = new ArrayList<MainObject>();
+		ArrayList<ExtendedObject> extList = getExtendedObjects(model);
+		ArrayList<MainObject> mainList = getMainObjects(model);
 		
-		
-		for (AbstractObject abstractObject : model.getAbstractObject()) {
-			if(abstractObject.getMainObject() != null) {
-				mainList.add(abstractObject.getMainObject());
-			} else if(abstractObject.getExtendedObject() != null) {
-				extList.add(abstractObject.getExtendedObject());
-			}	
-		}
 		
 		for(ExtendedObject extObj : extList) {
-			ArrayList<ExtendedProperties> exProp = (ArrayList<ExtendedProperties>) extObj.getBody()
-			for(ExtendedProperties prop : exProp) {
-				if(prop.getOverride() == null) {
+			ArrayList<ExtendedProperties> extProps = getExtendedProperties(extObj);
+			String superObject = extObj.getExtendsID().toString();
+			
+			for(MainObject mainobj : mainList) {
+				if(mainobj.getObjectName().toString().equals(superObject)) {
 					
+					ArrayList<hasProperties> superProperties = getMainObjectProperties(mainobj);
+					for(ExtendedProperties prop : extProps) {
+						if(prop.getExtendedProperties().getProperties().getPropObj() != null && prop.getOverride() == null) {
+							String propertyName = prop.getExtendedProperties().getProperties().getPropObj().getObjectName().toString();
+							for(hasProperties mainProp : superProperties) {
+								if(mainProp.getProperties().getPropObj() != null) {
+									String mainPropertyName = mainProp.getProperties().getPropObj().getObjectName().toString();
+									if(propertyName.equals(mainPropertyName)) {
+										super.error("Nested MainObject already exists i SuperObject", prop, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
+									}
+								}
+							}
+						} else if(prop.getExtendedProperties().getProperties().getPropPrim() != null && prop.getOverride() == null) {
+							
+						}
+					}
 				}
-			}
-					
+			}			
 		}
 	}
 	
@@ -65,18 +76,8 @@ public class JSchemaValidator extends AbstractJSchemaValidator {
 	
 	@Check
 	public void checkIfSuperobjectDoesNotExist(Model model) {
-		ArrayList<ExtendedObject> extList = new ArrayList<ExtendedObject>();
-		ArrayList<MainObject> mainList = new ArrayList<MainObject>();
-		
-		
-		for (AbstractObject abstractObject : model.getAbstractObject()) {
-			if(abstractObject.getMainObject() != null) {
-				mainList.add(abstractObject.getMainObject());
-				
-			} else if(abstractObject.getExtendedObject() != null) {
-				extList.add(abstractObject.getExtendedObject());
-			}
-		}
+		ArrayList<ExtendedObject> extList = getExtendedObjects(model);
+		ArrayList<MainObject> mainList = getMainObjects(model);
 		
 		Iterator<ExtendedObject> objIterator = extList.iterator();
 				while(objIterator.hasNext()){
@@ -92,4 +93,87 @@ public class JSchemaValidator extends AbstractJSchemaValidator {
 			super.error("Super Object does not exist", extendedObjectForRedlining, JSchemaPackage.Literals.EXTENDED_OBJECT__EXTENDS_ID);
 		}
 	}
+	
+	//From here on are helper methods for extracting objects from the model.
+	
+	public ArrayList<hasProperties> getMainObjectProperties(MainObject main){
+		ArrayList<hasProperties> hasProp = new ArrayList<hasProperties>();
+		
+		for(hasProperties e: main.getProperties()) {
+			hasProp.add(e);
+		}
+		
+		return hasProp;
+	}
+	
+	
+	public ArrayList<ExtendedProperties> getExtendedProperties(ExtendedObject extObj){
+		ArrayList<ExtendedProperties> extProp = new ArrayList<ExtendedProperties>();
+		
+		for(ExtendedProperties extProperty : extObj.getBody()) {
+			extProp.add(extProperty);
+	}
+		return extProp;
+			
+	}
+	
+	public ArrayList<MainObject> getMainObjects (Model model){
+		ArrayList<MainObject> mainObjects = new ArrayList<MainObject>();
+		
+		for(AbstractObject abstractObject : model.getAbstractObject()) {
+			if(abstractObject.getMainObject() != null) {
+				mainObjects.add(abstractObject.getMainObject());
+			}
+		}
+		return mainObjects;
+	}
+	
+	public ArrayList<PrimitiveObject> getPrimitiveObjects(Model model) {
+		ArrayList<PrimitiveObject> primObjects = new ArrayList<PrimitiveObject>();
+		
+		for(AbstractObject absObj : model.getAbstractObject()) {
+			if(absObj.getPrimitiveObject() != null) {
+				primObjects.add(absObj.getPrimitiveObject());
+			}
+		}
+		return primObjects;
+	}
+	
+	public ArrayList<ExtendedObject> getExtendedObjects(Model model) {
+		ArrayList<ExtendedObject> extObj = new ArrayList<ExtendedObject>();
+		
+		for(AbstractObject absObj : model.getAbstractObject()) {
+			if(absObj.getExtendedObject() != null) {
+				extObj.add(absObj.getExtendedObject());
+			}
+		}
+		return extObj;
+	}
+	
+	public String getPrimitiveObjectName(hasProperties mainProp, ExtendedProperties extProp) {
+		String name = "";
+		if(mainProp == null) {
+			PrimitiveTypes extPropType = extProp.getExtendedProperties().getProperties().getPropPrim().getType();
+			if (extPropType.getArray() != null) {
+				name = extPropType.getArray().getArrayName().toString();
+			} else if(extPropType.getString() != null) {
+				name = extPropType.getString().toString();
+			} else if(extPropType.getNumber() != null) {
+				name = extPropType.getNumber().toString();
+			}
+		}else {
+			PrimitiveTypes mainPropType = mainProp.getProperties().getPropPrim().getType();
+			if(mainPropType.getArray() != null) {
+				name = mainPropType.getArray().getArrayName();
+			} else if(mainPropType.getString() != null) {
+				name = mainPropType.getString().toString();
+			} else if(mainPropType.getNumber() != null) {
+				name = mainPropType.getNumber().toString();
+			}
+		}
+		
+		return name;
+	}
+	
+	
 }
