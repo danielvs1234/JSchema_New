@@ -430,17 +430,17 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 	public class HasPropertiesElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.JSchema.hasProperties");
 		private final Assignment cPropertiesAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cPropertiesPropertyParserRuleCall_0 = (RuleCall)cPropertiesAssignment.eContents().get(0);
+		private final RuleCall cPropertiesAbstractObjectParserRuleCall_0 = (RuleCall)cPropertiesAssignment.eContents().get(0);
 		
 		//hasProperties:
-		//	properties=Property;
+		//	properties=AbstractObject;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//properties=Property
+		//properties=AbstractObject
 		public Assignment getPropertiesAssignment() { return cPropertiesAssignment; }
 		
-		//Property
-		public RuleCall getPropertiesPropertyParserRuleCall_0() { return cPropertiesPropertyParserRuleCall_0; }
+		//AbstractObject
+		public RuleCall getPropertiesAbstractObjectParserRuleCall_0() { return cPropertiesAbstractObjectParserRuleCall_0; }
 	}
 	public class PropertyElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.JSchema.Property");
@@ -1019,7 +1019,7 @@ public class JSchemaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//hasProperties:
-	//	properties=Property;
+	//	properties=AbstractObject;
 	public HasPropertiesElements getHasPropertiesAccess() {
 		return pHasProperties;
 	}

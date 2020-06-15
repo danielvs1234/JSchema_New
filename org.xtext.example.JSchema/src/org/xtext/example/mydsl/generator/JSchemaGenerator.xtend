@@ -215,9 +215,9 @@ class JSchemaGenerator extends AbstractGenerator {
 				if (property.override !== null) {
 					
 					//Check if overridden property is of type Main Object
-					if (property.extendedProperties.properties.propObj !== null) {
+					if (property.extendedProperties.properties.mainObject !== null) {
 						val sizeOfsuperMainObjectPropertiesBeforeRemoval = superMainObjectProperties.size()
-						val propertyName = property.extendedProperties.properties.propObj.objectName
+						val propertyName = property.extendedProperties.properties.mainObject.objectName.toString
 
 						// Remove Main Objects from list of inherited objects, if object name, matches overridden object name
 						var Iterator<ObjectClass> iterator = superMainObjectProperties.iterator();
@@ -225,7 +225,7 @@ class JSchemaGenerator extends AbstractGenerator {
 							val ObjectClass object = iterator.next();
 							if (propertyName == object.getName) {
 								iterator.remove();
-								tempObject.addHasMainObj(compileMainObject(property.extendedProperties.properties.propObj))
+								tempObject.addHasMainObj(compileMainObject(property.extendedProperties.properties.mainObject))
 							}
 						}
 						
@@ -235,16 +235,16 @@ class JSchemaGenerator extends AbstractGenerator {
 						}
 						
 					//Else check if overridden property is of type Primitive Object
-					}else if(property.extendedProperties.properties.propPrim !== null){
+					}else if(property.extendedProperties.properties.primitiveObject !== null){
 						
-						if(property.extendedProperties.properties.propPrim.type.string !== null){
-							val primitiveObjectName = property.extendedProperties.properties.propPrim.type.string
+						if(property.extendedProperties.properties.primitiveObject.type.string !== null){
+							val primitiveObjectName = property.extendedProperties.properties.primitiveObject.type.string
 							var Iterator<PrimitiveObjectClass> iterator = superPrimitiveProperties.iterator();
 							while(iterator.hasNext()){
 								val PrimitiveObjectClass object = iterator.next();
 								//Check if PrimitiveObject is a String
 								if(primitiveObjectName == object.valString){
-									var ArrayList<PrimitiveProperties> propertyStringProperties = getPrimProperties(property.extendedProperties.properties.propPrim)
+									var ArrayList<PrimitiveProperties> propertyStringProperties = getPrimProperties(property.extendedProperties.properties.primitiveObject)
 									var ArrayList<PrimitiveProperties> superStringProperties = object.stringProperties
 									var ArrayList<PrimitiveProperties> tempObjectProperties = new ArrayList<PrimitiveProperties>
 									
@@ -284,47 +284,47 @@ class JSchemaGenerator extends AbstractGenerator {
 								
 								iterator.remove()
 								
-								val PrimitiveObjectClass tempPrimObject = compilePrimitiveObject(property.extendedProperties.properties.propPrim)
+								val PrimitiveObjectClass tempPrimObject = compilePrimitiveObject(property.extendedProperties.properties.primitiveObject)
 								tempPrimObject.stringProperties = tempObjectProperties
 								tempObject.addHasPrimObj(tempPrimObject)
 								}
 							}
 							
 						//Else Check if overridden property is of type array.
-						}else if (property.extendedProperties.properties.propPrim.type.array !== null){
+						}else if (property.extendedProperties.properties.primitiveObject.type.array !== null){
 							
 							var ArrayList<PrimitiveObjectClass> superObjectPrims = superObject.getAllPrimitiveObjects()
-							val arrayName = property.extendedProperties.properties.propPrim.type.array.arrayName
+							val arrayName = property.extendedProperties.properties.primitiveObject.type.array.arrayName
 							for(PrimitiveObjectClass primObj : superObjectPrims){
 								if(primObj.primitiveObject.type.array !== null){
 									if(arrayName == primObj.name){
 										//If array already exists in the primitive properties of the super object, then compile the new array and at it to tempObject
-										tempObject.addHasPrimObj(compilePrimitiveObject(property.extendedProperties.properties.propPrim))
+										tempObject.addHasPrimObj(compilePrimitiveObject(property.extendedProperties.properties.primitiveObject))
 									}
 								}
 							}
 							
-						}else if (property.extendedProperties.properties.propPrim.type.number !== null){
+						}else if (property.extendedProperties.properties.primitiveObject.type.number !== null){
 							
 							var ArrayList<PrimitiveObjectClass> superObjectPrims = superObject.getAllPrimitiveObjects()
-							val numberValue = property.extendedProperties.properties.propPrim.type.number.number
+							val numberValue = property.extendedProperties.properties.primitiveObject.type.number.number
 							
 							for(PrimitiveObjectClass primObj : superObjectPrims){
 								if(primObj.primitiveObject.type.number !== null){
 									if(numberValue == Integer.parseInt(primObj.valNumber)){
 										//If number already exists in super Object, compile new number.
-										tempObject.addHasPrimObj(compilePrimitiveObject(property.extendedProperties.properties.propPrim))
+										tempObject.addHasPrimObj(compilePrimitiveObject(property.extendedProperties.properties.primitiveObject))
 									}
 								}
 							}
 						}		
 					}
 				}else {
-					//Compile objects if they are not overriden, but first check if they are actually part of the super Object both nested and included
-					if(property.extendedProperties.properties.propObj !== null){
+					//Compile objects if they are not overridden, but first check if they are actually part of the super Object both nested and included
+					if(property.extendedProperties.properties.mainObject !== null){
 						//check for main objects first
 						
-						val allegedlyNewMainObjectName = property.extendedProperties.properties.propObj.objectName
+						val allegedlyNewMainObjectName = property.extendedProperties.properties.mainObject.objectName
 						
 						var ArrayList<ObjectClass> containedObjectInSuper = new ArrayList<ObjectClass>
 						for(ObjectClass superNestedMainObject : superObject.hasMainObjectPropertiesList){
@@ -344,18 +344,18 @@ class JSchemaGenerator extends AbstractGenerator {
 						}
 						if(doesObjectExists == false){
 							//Add nested object to the tempObject of type ExtendedObjectClass
-							tempObject.addHasMainObj(compileMainObject(property.extendedProperties.properties.propObj))
+							tempObject.addHasMainObj(compileMainObject(property.extendedProperties.properties.mainObject))
 						}
 						
-					} else if(property.extendedProperties.properties.propPrim !== null){
+					} else if(property.extendedProperties.properties.primitiveObject !== null){
 						//Check for primitiveObjects
 						var allegedlyNewPrimObjectName = ""
-						if(property.extendedProperties.properties.propPrim.type.string !== null){
-							allegedlyNewPrimObjectName = property.extendedProperties.properties.propPrim.type.string
-						}else if(property.extendedProperties.properties.propPrim.type.array !== null){
-							allegedlyNewPrimObjectName = property.extendedProperties.properties.propPrim.type.array.arrayName
-						}else if(property.extendedProperties.properties.propPrim.type.number !== null){
-							allegedlyNewPrimObjectName = ""+property.extendedProperties.properties.propPrim.type.number.number
+						if(property.extendedProperties.properties.primitiveObject.type.string !== null){
+							allegedlyNewPrimObjectName = property.extendedProperties.properties.primitiveObject.type.string
+						}else if(property.extendedProperties.properties.primitiveObject.type.array !== null){
+							allegedlyNewPrimObjectName = property.extendedProperties.properties.primitiveObject.type.array.arrayName
+						}else if(property.extendedProperties.properties.primitiveObject.type.number !== null){
+							allegedlyNewPrimObjectName = ""+property.extendedProperties.properties.primitiveObject.type.number.number
 						}
 					
 					var ArrayList<PrimitiveObjectClass> containedPrimObjectInSuper = new ArrayList<PrimitiveObjectClass>
@@ -371,13 +371,13 @@ class JSchemaGenerator extends AbstractGenerator {
 					for(PrimitiveObjectClass object : containedPrimObjectInSuper){
 							if(object.name == allegedlyNewPrimObjectName){
 								doesPrimObjectExists = true
-								//Show error stating that new nested Primit Object is already inherited from super object, and add the object from super
+								//Show error stating that new nested PrimitiveObject is already inherited from super object, and add the object from super
 								System.out.println("Nested Primitive object is already inherited from Super object (nested object name: "+ object.name)
 							}
 					}
 						if(doesPrimObjectExists == false){
 							//Add nested object to the tempObject of type ExtendedObjectClass
-							tempObject.addHasPrimObj(compilePrimitiveObject(property.extendedProperties.properties.propPrim))
+							tempObject.addHasPrimObj(compilePrimitiveObject(property.extendedProperties.properties.primitiveObject))
 						}
 					}
 				}
@@ -476,12 +476,12 @@ class JSchemaGenerator extends AbstractGenerator {
 			}
 
 			for (hasProperties e : getProperties(obj)) {
-				if (e.properties.propPrim !== null) {
-					tempObject.addHasPrimObj(compilePrimitiveObject(e.properties.propPrim));
-				} else if (e.properties.propObj !== null) {
-					tempObject.addHasMainObj(compileMainObject(e.properties.propObj));
-				} else if (e.properties.propExtObj !== null) {
-					tempObject.addHasExtendedObj(compileExtendedObject(e.properties.propExtObj));
+				if (e.properties.primitiveObject !== null) {
+					tempObject.addHasPrimObj(compilePrimitiveObject(e.properties.primitiveObject));
+				} else if (e.properties.mainObject !== null) {
+					tempObject.addHasMainObj(compileMainObject(e.properties.mainObject));
+				} else if (e.properties.extendedObject !== null) {
+					tempObject.addHasExtendedObj(compileExtendedObject(e.properties.extendedObject));
 				}
 			}
 

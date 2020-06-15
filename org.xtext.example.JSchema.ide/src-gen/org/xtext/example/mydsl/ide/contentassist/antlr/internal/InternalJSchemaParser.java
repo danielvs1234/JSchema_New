@@ -8897,25 +8897,25 @@ public class InternalJSchemaParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__HasProperties__PropertiesAssignment"
-    // InternalJSchema.g:2858:1: rule__HasProperties__PropertiesAssignment : ( ruleProperty ) ;
+    // InternalJSchema.g:2858:1: rule__HasProperties__PropertiesAssignment : ( ruleAbstractObject ) ;
     public final void rule__HasProperties__PropertiesAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalJSchema.g:2862:1: ( ( ruleProperty ) )
-            // InternalJSchema.g:2863:2: ( ruleProperty )
+            // InternalJSchema.g:2862:1: ( ( ruleAbstractObject ) )
+            // InternalJSchema.g:2863:2: ( ruleAbstractObject )
             {
-            // InternalJSchema.g:2863:2: ( ruleProperty )
-            // InternalJSchema.g:2864:3: ruleProperty
+            // InternalJSchema.g:2863:2: ( ruleAbstractObject )
+            // InternalJSchema.g:2864:3: ruleAbstractObject
             {
-             before(grammarAccess.getHasPropertiesAccess().getPropertiesPropertyParserRuleCall_0()); 
+             before(grammarAccess.getHasPropertiesAccess().getPropertiesAbstractObjectParserRuleCall_0()); 
             pushFollow(FOLLOW_2);
-            ruleProperty();
+            ruleAbstractObject();
 
             state._fsp--;
 
-             after(grammarAccess.getHasPropertiesAccess().getPropertiesPropertyParserRuleCall_0()); 
+             after(grammarAccess.getHasPropertiesAccess().getPropertiesAbstractObjectParserRuleCall_0()); 
 
             }
 

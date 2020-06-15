@@ -45,7 +45,7 @@ IsRoot:
 ;
 
 hasProperties:
-	properties=Property
+	properties=AbstractObject
 ;
 
 Property:

@@ -1980,7 +1980,7 @@ public class InternalJSchemaParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulehasProperties"
-    // InternalJSchema.g:784:1: rulehasProperties returns [EObject current=null] : ( (lv_properties_0_0= ruleProperty ) ) ;
+    // InternalJSchema.g:784:1: rulehasProperties returns [EObject current=null] : ( (lv_properties_0_0= ruleAbstractObject ) ) ;
     public final EObject rulehasProperties() throws RecognitionException {
         EObject current = null;
 
@@ -1991,20 +1991,20 @@ public class InternalJSchemaParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalJSchema.g:790:2: ( ( (lv_properties_0_0= ruleProperty ) ) )
-            // InternalJSchema.g:791:2: ( (lv_properties_0_0= ruleProperty ) )
+            // InternalJSchema.g:790:2: ( ( (lv_properties_0_0= ruleAbstractObject ) ) )
+            // InternalJSchema.g:791:2: ( (lv_properties_0_0= ruleAbstractObject ) )
             {
-            // InternalJSchema.g:791:2: ( (lv_properties_0_0= ruleProperty ) )
-            // InternalJSchema.g:792:3: (lv_properties_0_0= ruleProperty )
+            // InternalJSchema.g:791:2: ( (lv_properties_0_0= ruleAbstractObject ) )
+            // InternalJSchema.g:792:3: (lv_properties_0_0= ruleAbstractObject )
             {
-            // InternalJSchema.g:792:3: (lv_properties_0_0= ruleProperty )
-            // InternalJSchema.g:793:4: lv_properties_0_0= ruleProperty
+            // InternalJSchema.g:792:3: (lv_properties_0_0= ruleAbstractObject )
+            // InternalJSchema.g:793:4: lv_properties_0_0= ruleAbstractObject
             {
 
-            				newCompositeNode(grammarAccess.getHasPropertiesAccess().getPropertiesPropertyParserRuleCall_0());
+            				newCompositeNode(grammarAccess.getHasPropertiesAccess().getPropertiesAbstractObjectParserRuleCall_0());
             			
             pushFollow(FOLLOW_2);
-            lv_properties_0_0=ruleProperty();
+            lv_properties_0_0=ruleAbstractObject();
 
             state._fsp--;
 
@@ -2016,7 +2016,7 @@ public class InternalJSchemaParser extends AbstractInternalAntlrParser {
             					current,
             					"properties",
             					lv_properties_0_0,
-            					"org.xtext.example.mydsl.JSchema.Property");
+            					"org.xtext.example.mydsl.JSchema.AbstractObject");
             				afterParserOrEnumRuleCall();
             			
 

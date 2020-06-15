@@ -791,9 +791,9 @@ rulehasProperties returns [EObject current=null]
 	(
 		(
 			{
-				newCompositeNode(grammarAccess.getHasPropertiesAccess().getPropertiesPropertyParserRuleCall_0());
+				newCompositeNode(grammarAccess.getHasPropertiesAccess().getPropertiesAbstractObjectParserRuleCall_0());
 			}
-			lv_properties_0_0=ruleProperty
+			lv_properties_0_0=ruleAbstractObject
 			{
 				if ($current==null) {
 					$current = createModelElementForParent(grammarAccess.getHasPropertiesRule());
@@ -802,7 +802,7 @@ rulehasProperties returns [EObject current=null]
 					$current,
 					"properties",
 					lv_properties_0_0,
-					"org.xtext.example.mydsl.JSchema.Property");
+					"org.xtext.example.mydsl.JSchema.AbstractObject");
 				afterParserOrEnumRuleCall();
 			}
 		)

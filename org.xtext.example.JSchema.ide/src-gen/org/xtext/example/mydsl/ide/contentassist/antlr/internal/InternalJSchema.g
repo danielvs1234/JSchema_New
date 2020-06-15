@@ -2861,9 +2861,9 @@ rule__HasProperties__PropertiesAssignment
 	}
 :
 	(
-		{ before(grammarAccess.getHasPropertiesAccess().getPropertiesPropertyParserRuleCall_0()); }
-		ruleProperty
-		{ after(grammarAccess.getHasPropertiesAccess().getPropertiesPropertyParserRuleCall_0()); }
+		{ before(grammarAccess.getHasPropertiesAccess().getPropertiesAbstractObjectParserRuleCall_0()); }
+		ruleAbstractObject
+		{ after(grammarAccess.getHasPropertiesAccess().getPropertiesAbstractObjectParserRuleCall_0()); }
 	)
 ;
 finally {

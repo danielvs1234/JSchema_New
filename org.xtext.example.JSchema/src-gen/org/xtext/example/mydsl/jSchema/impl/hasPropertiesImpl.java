@@ -12,8 +12,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.xtext.example.mydsl.jSchema.AbstractObject;
 import org.xtext.example.mydsl.jSchema.JSchemaPackage;
-import org.xtext.example.mydsl.jSchema.Property;
 import org.xtext.example.mydsl.jSchema.hasProperties;
 
 /**
@@ -39,7 +39,7 @@ public class hasPropertiesImpl extends MinimalEObjectImpl.Container implements h
    * @generated
    * @ordered
    */
-  protected Property properties;
+  protected AbstractObject properties;
 
   /**
    * <!-- begin-user-doc -->
@@ -68,7 +68,7 @@ public class hasPropertiesImpl extends MinimalEObjectImpl.Container implements h
    * @generated
    */
   @Override
-  public Property getProperties()
+  public AbstractObject getProperties()
   {
     return properties;
   }
@@ -78,9 +78,9 @@ public class hasPropertiesImpl extends MinimalEObjectImpl.Container implements h
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetProperties(Property newProperties, NotificationChain msgs)
+  public NotificationChain basicSetProperties(AbstractObject newProperties, NotificationChain msgs)
   {
-    Property oldProperties = properties;
+    AbstractObject oldProperties = properties;
     properties = newProperties;
     if (eNotificationRequired())
     {
@@ -96,7 +96,7 @@ public class hasPropertiesImpl extends MinimalEObjectImpl.Container implements h
    * @generated
    */
   @Override
-  public void setProperties(Property newProperties)
+  public void setProperties(AbstractObject newProperties)
   {
     if (newProperties != properties)
     {
@@ -155,7 +155,7 @@ public class hasPropertiesImpl extends MinimalEObjectImpl.Container implements h
     switch (featureID)
     {
       case JSchemaPackage.HAS_PROPERTIES__PROPERTIES:
-        setProperties((Property)newValue);
+        setProperties((AbstractObject)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -172,7 +172,7 @@ public class hasPropertiesImpl extends MinimalEObjectImpl.Container implements h
     switch (featureID)
     {
       case JSchemaPackage.HAS_PROPERTIES__PROPERTIES:
-        setProperties((Property)null);
+        setProperties((AbstractObject)null);
         return;
     }
     super.eUnset(featureID);

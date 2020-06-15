@@ -43,12 +43,12 @@ public class JSchemaValidator extends AbstractJSchemaValidator {
 							for(hasProperties mainprop : getMainObjectProperties(mainobj)) {
 								mainObjectPropertiesNames.add(getPrimitiveObjectName(mainprop, null));
 							}
-							if(extendedProperty.getExtendedProperties().getProperties().getPropObj() != null) {
-								String exMainObjPropName = extendedProperty.getExtendedProperties().getProperties().getPropObj().getObjectName().toString();
+							if(extendedProperty.getExtendedProperties().getProperties().getMainObject() != null) {
+								String exMainObjPropName = extendedProperty.getExtendedProperties().getProperties().getMainObject().getObjectName().toString();
 								ArrayList<String> nestedMainObjectNames = new ArrayList<String>();
 								for(hasProperties mainObjectProperties : getMainObjectProperties(mainobj)) {
-									if(mainObjectProperties.getProperties().getPropObj() != null) {
-										nestedMainObjectNames.add(mainObjectProperties.getProperties().getPropObj().getObjectName().toString());
+									if(mainObjectProperties.getProperties().getMainObject() != null) {
+										nestedMainObjectNames.add(mainObjectProperties.getProperties().getMainObject().getObjectName().toString());
 									}
 								}
 								if(!nestedMainObjectNames.contains(exMainObjPropName)) {
@@ -56,7 +56,7 @@ public class JSchemaValidator extends AbstractJSchemaValidator {
 									
 								}
 							}
-							PrimitiveTypes exType = extendedProperty.getExtendedProperties().getProperties().getPropPrim().getType();
+							PrimitiveTypes exType = extendedProperty.getExtendedProperties().getProperties().getPrimitiveObject().getType();
 							if(exType.getArray() != null) {
 								
 									if(!mainObjectPropertiesNames.contains(exType.getArray().getArrayName().toString())) {
@@ -84,7 +84,6 @@ public class JSchemaValidator extends AbstractJSchemaValidator {
 		}
 	}
 	
-	
 	@Check
 	public void checkIfNestedPropertyIsInheritedAlready(Model model) {
 		
@@ -101,23 +100,23 @@ public class JSchemaValidator extends AbstractJSchemaValidator {
 					
 					ArrayList<hasProperties> superProperties = getMainObjectProperties(mainobj);
 					for(ExtendedProperties prop : extProps) {
-						if(prop.getExtendedProperties().getProperties().getPropObj() != null && prop.getOverride() == null) {
-							String propertyName = prop.getExtendedProperties().getProperties().getPropObj().getObjectName().toString();
+						if(prop.getExtendedProperties().getProperties().getMainObject() != null && prop.getOverride() == null) {
+							String propertyName = prop.getExtendedProperties().getProperties().getMainObject().getObjectName().toString();
 							for(hasProperties mainProp : superProperties) {
-								if(mainProp.getProperties().getPropObj() != null) {
-									String mainPropertyName = mainProp.getProperties().getPropObj().getObjectName().toString();
+								if(mainProp.getProperties().getMainObject() != null) {
+									String mainPropertyName = mainProp.getProperties().getMainObject().getObjectName().toString();
 									if(propertyName.equals(mainPropertyName)) {
 										super.error("Nested MainObject already inherited from SuperObject", prop, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
 									}
 								}
 							}
-						} else if(prop.getExtendedProperties().getProperties().getPropPrim() != null && prop.getOverride() == null) {
-							PrimitiveTypes propType = prop.getExtendedProperties().getProperties().getPropPrim().getType();
+						} else if(prop.getExtendedProperties().getProperties().getPrimitiveObject() != null && prop.getOverride() == null) {
+							PrimitiveTypes propType = prop.getExtendedProperties().getProperties().getPrimitiveObject().getType();
 							if(propType.getArray() != null) {
 								String arrayNameOnExtended = propType.getArray().getArrayName().toString();
 								for(hasProperties mainProp : superProperties) {
-									if(mainProp.getProperties().getPropPrim().getType().getArray() != null) {
-										if(arrayNameOnExtended.equals(mainProp.getProperties().getPropPrim().getType().getArray().getArrayName().toString())) {
+									if(mainProp.getProperties().getPrimitiveObject().getType().getArray() != null) {
+										if(arrayNameOnExtended.equals(mainProp.getProperties().getPrimitiveObject().getType().getArray().getArrayName().toString())) {
 											super.error("Nested Array is already inherited from super object", prop, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
 											}
 									}
@@ -125,8 +124,8 @@ public class JSchemaValidator extends AbstractJSchemaValidator {
 							} else if(propType.getNumber() != null) {
 								String numberValue = propType.getNumber().toString();
 								for(hasProperties mainProp : superProperties) {
-									if(mainProp.getProperties().getPropPrim().getType().getNumber() != null) {
-										if(numberValue.equals(mainProp.getProperties().getPropPrim().getType().getNumber().toString())) {
+									if(mainProp.getProperties().getPrimitiveObject().getType().getNumber() != null) {
+										if(numberValue.equals(mainProp.getProperties().getPrimitiveObject().getType().getNumber().toString())) {
 											super.error("Nested Number is already inherited from super object", prop, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
 											}
 									}
@@ -135,8 +134,8 @@ public class JSchemaValidator extends AbstractJSchemaValidator {
 							} else if(propType.getString() != null) {
 								String StringValue = propType.getString().toString();
 								for(hasProperties mainProp : superProperties) {
-									if(mainProp.getProperties().getPropPrim().getType().getString() != null) {
-										if(StringValue.equals(mainProp.getProperties().getPropPrim().getType().getString().toString())) {
+									if(mainProp.getProperties().getPrimitiveObject().getType().getString() != null) {
+										if(StringValue.equals(mainProp.getProperties().getPrimitiveObject().getType().getString().toString())) {
 											super.error("Nested String is already inherited from super object", prop, JSchemaPackage.Literals.EXTENDED_PROPERTIES__EXTENDED_PROPERTIES);
 											}
 										}
@@ -230,27 +229,29 @@ public class JSchemaValidator extends AbstractJSchemaValidator {
 	public String getPrimitiveObjectName(hasProperties mainProp, ExtendedProperties extProp) {
 		String name = "";
 		if(mainProp == null) {
-			PrimitiveTypes extPropType = extProp.getExtendedProperties().getProperties().getPropPrim().getType();
+			PrimitiveTypes extPropType = extProp.getExtendedProperties().getProperties().getPrimitiveObject().getType();
 			if (extPropType.getArray() != null) {
 				name = extPropType.getArray().getArrayName().toString();
 			} else if(extPropType.getString() != null) {
 				name = extPropType.getString().toString();
 			} else if(extPropType.getNumber() != null) {
 				name = extPropType.getNumber().toString();
-			}
 		}else {
-			PrimitiveTypes mainPropType = mainProp.getProperties().getPropPrim().getType();
+			PrimitiveTypes mainPropType = mainProp.getProperties().getPrimitiveObject().getType();
 			if(mainPropType.getArray() != null) {
 				name = mainPropType.getArray().getArrayName();
 			} else if(mainPropType.getString() != null) {
 				name = mainPropType.getString().toString();
 			} else if(mainPropType.getNumber() != null) {
 				name = mainPropType.getNumber().toString();
+				}
 			}
 		}
 		
 		return name;
 	}
+	
+	
 	
 	
 }

@@ -3,6 +3,11 @@
  */
 package org.xtext.example.mydsl.scoping;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.scoping.IScope;
+import org.xtext.example.mydsl.jSchema.ExtendedObject;
+import org.xtext.example.mydsl.jSchema.JSchemaPackage;
 
 /**
  * This class contains custom scoping description.
@@ -11,5 +16,5 @@ package org.xtext.example.mydsl.scoping;
  * on how and when to use it.
  */
 public class JSchemaScopeProvider extends AbstractJSchemaScopeProvider {
-
+	
 }

@@ -28,12 +28,12 @@ public interface hasProperties extends EObject
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Properties</em>' containment reference.
-   * @see #setProperties(Property)
+   * @see #setProperties(AbstractObject)
    * @see org.xtext.example.mydsl.jSchema.JSchemaPackage#gethasProperties_Properties()
    * @model containment="true"
    * @generated
    */
-  Property getProperties();
+  AbstractObject getProperties();
 
   /**
    * Sets the value of the '{@link org.xtext.example.mydsl.jSchema.hasProperties#getProperties <em>Properties</em>}' containment reference.
@@ -43,6 +43,6 @@ public interface hasProperties extends EObject
    * @see #getProperties()
    * @generated
    */
-  void setProperties(Property value);
+  void setProperties(AbstractObject value);
 
 } // hasProperties

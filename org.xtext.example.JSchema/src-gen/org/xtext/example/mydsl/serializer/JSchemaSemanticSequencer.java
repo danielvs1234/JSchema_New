@@ -258,7 +258,7 @@ public class JSchemaSemanticSequencer extends AbstractDelegatingSemanticSequence
 	 *     hasProperties returns hasProperties
 	 *
 	 * Constraint:
-	 *     properties=Property
+	 *     properties=AbstractObject
 	 */
 	protected void sequence_hasProperties(ISerializationContext context, hasProperties semanticObject) {
 		if (errorAcceptor != null) {
@@ -266,7 +266,7 @@ public class JSchemaSemanticSequencer extends AbstractDelegatingSemanticSequence
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, JSchemaPackage.Literals.HAS_PROPERTIES__PROPERTIES));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getHasPropertiesAccess().getPropertiesPropertyParserRuleCall_0(), semanticObject.getProperties());
+		feeder.accept(grammarAccess.getHasPropertiesAccess().getPropertiesAbstractObjectParserRuleCall_0(), semanticObject.getProperties());
 		feeder.finish();
 	}
 	
