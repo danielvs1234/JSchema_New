@@ -102,11 +102,10 @@ class JSchemaGenerator extends AbstractGenerator {
 				//System.out.println(stringBuilder.toString)
 				
 				val formattedString = jsonFormatter.formatString(stringBuilder.toString())
-				
-				
 				System.out.println(formattedString)
-				fileController.writeFile(formattedString)
-			// fsa.generateFile("testFile.json", jsonFormatter.formatString(stringBuilder.toString()))
+			//  if a custom directory is desired, un-comment line below, and edit the directory in the global variables
+			//	fileController.writeFile(formattedString)
+			 fsa.generateFile("testFile.json", formattedString)
 			}
 		}
 
